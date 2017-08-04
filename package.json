@@ -1,0 +1,19 @@
+{
+  "name": "react-avatar",
+  "version": "0.0.1",
+  "description": "ReactJS component to upload, crop, rotate and preview avatars",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kirill3333/react-avatar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kirill3333/react-avatar/issues"
+  },
+  "homepage": "https://github.com/kirill3333/react-avatar#readme"
+}
