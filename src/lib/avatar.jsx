@@ -6,7 +6,7 @@ import 'konva/src/shapes/Rect'
 import 'konva/src/shapes/Path'
 import 'konva/src/Animation'
 import 'konva/src/DragAndDrop'
-// import 'tracking' //TODO Face detection
+// import 'tracking' // TODO Face detection
 // import 'tracking/build/data/face'
 
 class Avatar extends React.Component {
@@ -19,7 +19,8 @@ class Avatar extends React.Component {
   }
 
   constructor(props) {
-    super(props);
+    super(props)
+    const containerId = this.generateHash()
     const image = this.props.img || new Image()
     if (!this.props.img && this.props.src) image.src = this.props.src
     this.state = {
@@ -27,12 +28,22 @@ class Avatar extends React.Component {
       imgWidth: 0,
       imgHeight: 0,
       scale: 1,
+      containerId
     }
   }
 
   componentDidMount() {
     if (this.image.complete) return this.init()
     this.image.onload = () => this.init()
+  }
+
+  generateHash() {
+    const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
+    return 'avatarContainer-' + s4() + '-' + s4() + '-' + s4()
+  }
+
+  get containerId() {
+    return this.state.containerId
   }
 
   get shadingColor() {
@@ -44,7 +55,7 @@ class Avatar extends React.Component {
   }
 
   get cropRadius() {
-    return this.props.cropRadius
+    return this.state.cropRadius
   }
 
   get minCropRadius() {
@@ -78,15 +89,18 @@ class Avatar extends React.Component {
   init() {
     const originalWidth = this.image.width
     const originalHeight = this.image.height
-
-    const scale =  this.props.height / originalHeight
     const ration = originalHeight / originalWidth
-    const imageWidth = this.props.height / ration
+    const height = this.props.height || originalHeight
+
+    const scale =  height / originalHeight
+    const imageWidth = height / ration
+    const cropRadius = imageWidth / 4
 
     this.setState({
       imgWidth: imageWidth,
-      imgHeight: this.props.height,
-      scale
+      imgHeight: height,
+      scale,
+      cropRadius
     }, this.initCanvas)
   }
 
@@ -161,7 +175,7 @@ class Avatar extends React.Component {
 
   initStage() {
     return new Konva.Stage({
-      container: 'avatarContainer',
+      container: this.containerId,
       width: this.width,
       height: this.height
     })
@@ -203,7 +217,7 @@ class Avatar extends React.Component {
         x: this.scale,
         y: this.scale
       },
-      stroke: 'white',
+      stroke: '#FFF',
       strokeWidth: 2,
       opacity: 1,
       draggable: true,
@@ -234,7 +248,7 @@ class Avatar extends React.Component {
       x: this.halfWidth + this.cropRadius * 0.85 - 8,
       y: this.halfHeight + this.cropRadius * -0.5 - 10,
       data: 'M47.624,0.124l12.021,9.73L44.5,24.5l10,10l14.661-15.161l9.963,12.285v-31.5H47.624z M24.5,44.5   L9.847,59.653L0,47.5V79h31.5l-12.153-9.847L34.5,54.5L24.5,44.5z',
-      fill: '#FFFFFF',
+      fill: '#FFF',
       scale: {
         x : 0.2,
         y : 0.2
@@ -243,8 +257,15 @@ class Avatar extends React.Component {
   }
 
   render() {
+    const divStyle = {
+      display: 'flex',
+      justifyContent: 'center',
+      backgroundColor: 'grey',
+      width: this.props.width || this.width
+    }
+
     return (
-      <div id="avatarContainer"/>
+      <div id={this.containerId} style={divStyle}/>
     )
   }
 }
