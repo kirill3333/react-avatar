@@ -38,6 +38,11 @@ class Avatar extends React.Component {
     return 'avatarContainer-' + s4() + '-' + s4() + '-' + s4()
   }
 
+  onDrag(img) {
+    if (!this.props.onDrag && typeof this.props.onDrag !== 'function') return
+    this.props.onDrag(img)
+  }
+
   componentDidMount() {
     if (this.image.complete) return this.init()
     this.image.onload = () => this.init()
@@ -114,6 +119,7 @@ class Avatar extends React.Component {
     const background = this.initBackground()
     const shading = this.initShading()
     const crop = this.initCrop()
+    const cropeStroke = this.initCropStroke()
     const resize = this.initResize()
     const resizeIcon = this.initResizeIcon()
 
@@ -121,7 +127,9 @@ class Avatar extends React.Component {
 
     layer.add(background)
     layer.add(shading)
+    layer.add(cropeStroke)
     layer.add(crop)
+
     layer.add(resize)
     layer.add(resizeIcon)
 
@@ -138,7 +146,7 @@ class Avatar extends React.Component {
     const calcBottom = () => stage.height() - crop.radius() - 1
     const isNotOutOfScale = scale => !isLeftCorner(scale) && !isRightCorner(scale) && !isBottomCorner(scale) && !isTopCorner(scale)
     const calcScaleRadius = scale => scaledRadius(scale) >= this.minCropRadius ? scale : crop.radius() - this.minCropRadius
-    const calcResizerX = x => x + (crop.radius() * 0.85)
+    const calcResizerX = x => x + (crop.radius() * 0.86)
     const calcResizerY = y => y - (crop.radius() * 0.5)
     const moveResizer = (x, y) => {
       resize.x(calcResizerX(x) - 8)
@@ -146,8 +154,15 @@ class Avatar extends React.Component {
       resizeIcon.x(calcResizerX(x) - 8)
       resizeIcon.y(calcResizerY(y) - 10)
     }
+    const getPreview = () => crop.toDataURL({
+      x: crop.x() - crop.radius(),
+      y: crop.y() - crop.radius(),
+      width: crop.radius() * 2,
+      height: crop.radius() * 2
+    })
 
     crop.on("dragmove", () => crop.fire('resize'))
+    crop.on("dragend", () => this.onDrag(getPreview()))
 
     crop.on('resize', () => {
       const x = isLeftCorner() ? calcLeft() : (isRightCorner() ? calcRight() : crop.x())
@@ -155,7 +170,9 @@ class Avatar extends React.Component {
       moveResizer(x, y)
       crop.setFillPatternOffset({ x: x / this.scale, y: y / this.scale })
       crop.x(x)
+      cropeStroke.x(x)
       crop.y(y)
+      cropeStroke.y(y)
     })
 
     crop.on("mouseenter", () => stage.container().style.cursor = 'move')
@@ -166,9 +183,11 @@ class Avatar extends React.Component {
     resize.on("dragmove", (evt) => {
       const scaleY = evt.evt.movementY
       const scale = scaleY  > 0 || isNotOutOfScale(scaleY) ? scaleY : 0
+      cropeStroke.radius(cropeStroke.radius() - calcScaleRadius(scale))
       crop.radius(crop.radius() - calcScaleRadius(scale))
       resize.fire('resize')
     })
+    resize.on("dragend", () => this.onDrag(getPreview()))
 
     resize.on('resize', () => moveResizer(crop.x(), crop.y()))
 
@@ -222,8 +241,6 @@ class Avatar extends React.Component {
         x: this.scale,
         y: this.scale
       },
-      stroke: '#FFF',
-      strokeWidth: 2,
       opacity: 1,
       draggable: true,
       dashEnabled: true,
@@ -231,13 +248,25 @@ class Avatar extends React.Component {
     })
   }
 
+  initCropStroke() {
+    return new Konva.Circle({
+      x: this.halfWidth,
+      y: this.halfHeight,
+      radius: this.cropRadius,
+      stroke: '#FFF',
+      strokeWidth: 2,
+      strokeScaleEnabled: true,
+      dashEnabled: true,
+      dash: [10, 5]
+    })
+  }
+
   initResize() {
     return new Konva.Rect({
-      x: this.halfWidth + this.cropRadius * 0.85 - 8,
+      x: this.halfWidth + this.cropRadius * 0.86 - 8,
       y: this.halfHeight + this.cropRadius * -0.5 - 8,
       width: 16,
       height: 16,
-      strokeWidth: 1,
       draggable: true,
       dragBoundFunc: function(pos) {
         return {
@@ -250,7 +279,7 @@ class Avatar extends React.Component {
 
   initResizeIcon() {
     return new Konva.Path({
-      x: this.halfWidth + this.cropRadius * 0.85 - 8,
+      x: this.halfWidth + this.cropRadius * 0.86 - 8,
       y: this.halfHeight + this.cropRadius * -0.5 - 10,
       data: 'M47.624,0.124l12.021,9.73L44.5,24.5l10,10l14.661-15.161l9.963,12.285v-31.5H47.624z M24.5,44.5   L9.847,59.653L0,47.5V79h31.5l-12.153-9.847L34.5,54.5L24.5,44.5z',
       fill: '#FFF',
