@@ -15,7 +15,8 @@ class Avatar extends React.Component {
     shadingColor: 'grey',
     shadingOpacity: 0.6,
     cropRadius: 100,
-    minCropRadius: 30
+    minCropRadius: 30,
+    backgroundColor: 'grey'
   }
 
   constructor(props) {
@@ -32,18 +33,22 @@ class Avatar extends React.Component {
     }
   }
 
-  componentDidMount() {
-    if (this.image.complete) return this.init()
-    this.image.onload = () => this.init()
-  }
-
   generateHash() {
     const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
     return 'avatarContainer-' + s4() + '-' + s4() + '-' + s4()
   }
 
+  componentDidMount() {
+    if (this.image.complete) return this.init()
+    this.image.onload = () => this.init()
+  }
+
   get containerId() {
     return this.state.containerId
+  }
+
+  get backgroundColor() {
+    return this.props.backgroundColor
   }
 
   get shadingColor() {
@@ -257,15 +262,15 @@ class Avatar extends React.Component {
   }
 
   render() {
-    const divStyle = {
+    const style = {
       display: 'flex',
       justifyContent: 'center',
-      backgroundColor: 'grey',
+      backgroundColor: this.backgroundColor,
       width: this.props.width || this.width
     }
 
     return (
-      <div id={this.containerId} style={divStyle}/>
+      <div id={this.containerId} style={style}/>
     )
   }
 }
