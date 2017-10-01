@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Konva from 'konva/src/Core'
 import 'konva/src/shapes/Image'
 import 'konva/src/shapes/Circle'
@@ -16,15 +15,7 @@ class Avatar extends React.Component {
     shadingColor: 'grey',
     shadingOpacity: 0.6,
     cropRadius: 100,
-    minCropRadius: 20
-  }
-
-  static propTypes = {
-    img: PropTypes.any,
-    src: PropTypes.string,
-    scale: PropTypes.number,
-    width: PropTypes.number,
-    height: PropTypes.number
+    minCropRadius: 30
   }
 
   constructor(props) {
@@ -42,6 +33,18 @@ class Avatar extends React.Component {
   componentDidMount() {
     if (this.image.complete) return this.init()
     this.image.onload = () => this.init()
+  }
+
+  get shadingColor() {
+    return this.props.shadingColor
+  }
+
+  get shadingOpacity() {
+    return this.props.shadingOpacity
+  }
+
+  get cropRadius() {
+    return this.props.cropRadius
   }
 
   get minCropRadius() {
@@ -180,9 +183,9 @@ class Avatar extends React.Component {
       y: 0,
       width: this.width,
       height: this.height,
-      fill: this.props.shadingColor,
+      fill: this.shadingColor,
       strokeWidth: 4,
-      opacity: this.props.shadingOpacity
+      opacity: this.shadingOpacity
     })
   }
 
@@ -190,7 +193,7 @@ class Avatar extends React.Component {
     return new Konva.Circle({
       x: this.halfWidth,
       y: this.halfHeight,
-      radius: this.props.cropRadius,
+      radius: this.cropRadius,
       fillPatternImage: this.image,
       fillPatternOffset: {
         x : this.halfWidth / this.scale,
@@ -211,8 +214,8 @@ class Avatar extends React.Component {
 
   initResize() {
     return new Konva.Rect({
-      x: this.halfWidth + this.props.cropRadius * 0.85 - 8,
-      y: this.halfHeight + this.props.cropRadius * -0.5 - 8,
+      x: this.halfWidth + this.cropRadius * 0.85 - 8,
+      y: this.halfHeight + this.cropRadius * -0.5 - 8,
       width: 16,
       height: 16,
       strokeWidth: 1,
@@ -228,8 +231,8 @@ class Avatar extends React.Component {
 
   initResizeIcon() {
     return new Konva.Path({
-      x: this.halfWidth + this.props.cropRadius * 0.85 - 8,
-      y: this.halfHeight + this.props.cropRadius * -0.5 - 10,
+      x: this.halfWidth + this.cropRadius * 0.85 - 8,
+      y: this.halfHeight + this.cropRadius * -0.5 - 10,
       data: 'M47.624,0.124l12.021,9.73L44.5,24.5l10,10l14.661-15.161l9.963,12.285v-31.5H47.624z M24.5,44.5   L9.847,59.653L0,47.5V79h31.5l-12.153-9.847L34.5,54.5L24.5,44.5z',
       fill: '#FFFFFF',
       scale: {

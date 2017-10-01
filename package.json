@@ -21,8 +21,7 @@
   },
   "homepage": "https://github.com/kirill3333/react-avatar#readme",
   "dependencies": {
-    "konva": "^1.6.7",
-    "prop-types": "^15.5.10"
+    "konva": "^1.6.7"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
