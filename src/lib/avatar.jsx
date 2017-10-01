@@ -4,6 +4,7 @@ import Konva from 'konva/src/Core'
 import 'konva/src/shapes/Image'
 import 'konva/src/shapes/Circle'
 import 'konva/src/shapes/Rect'
+import 'konva/src/shapes/Path'
 import 'konva/src/Animation'
 import 'konva/src/DragAndDrop'
 // import 'tracking' //TODO Face detection
@@ -39,11 +40,8 @@ class Avatar extends React.Component {
   }
 
   componentDidMount() {
-    if (this.image.complete) {
-      this.init()
-    } else {
-      this.image.onload = () => this.init()
-    }
+    if (this.image.complete) return this.init()
+    this.image.onload = () => this.init()
   }
 
   get minCropRadius() {
@@ -69,19 +67,11 @@ class Avatar extends React.Component {
   init() {
     const originalWidth = this.image.width
     const originalHeight = this.image.height
-    console.log('Width: ' + originalWidth)
-    console.log('Height: ' + originalHeight)
 
     const scale =  this.props.height / originalHeight
-
-    console.log('Props height: ' + this.props.height)
-    console.log('Scale: ' + scale)
-
     const ration = originalHeight / originalWidth
     const imageWidth = this.props.height / ration
 
-    console.log('Ratio: ' + ration)
-    console.log('New width: ' + imageWidth)
     this.setState({
       imgWidth: imageWidth,
       imgHeight: this.props.height,
@@ -95,6 +85,7 @@ class Avatar extends React.Component {
     const shading = this.initShading()
     const crop = this.initCrop()
     const resize = this.initResize()
+    const resizeIcon = this.initResizeIcon()
 
     const layer = new Konva.Layer();
 
@@ -102,6 +93,7 @@ class Avatar extends React.Component {
     layer.add(shading)
     layer.add(crop)
     layer.add(resize)
+    layer.add(resizeIcon)
 
     stage.add(layer)
 
@@ -117,8 +109,8 @@ class Avatar extends React.Component {
     const isNotOutOfScale = scale => !isLeftCorner(scale) && !isRightCorner(scale) && !isBottomCorner(scale) && !isTopCorner(scale)
     const calcScaleRadius = scale => scaledRadius(scale) >= this.minCropRadius ? scale : crop.radius() - this.minCropRadius
     const moveResizer = (x, y) => {
-      resize.x(x + (crop.radius() * Math.sin(45)) - 5)
-      resize.y(y - (crop.radius() * Math.cos(45)) - 5)
+      resize.x(x + (crop.radius() * Math.sin(45)) - 6)
+      resize.y(y - (crop.radius() * Math.cos(45)) - 6)
     }
 
     crop.on("dragmove", () => crop.fire('resize'))
@@ -193,21 +185,23 @@ class Avatar extends React.Component {
         x: this.scale,
         y: this.scale
       },
-      stroke: 'black',
-      strokeWidth: 1,
+      stroke: 'white',
+      strokeWidth: 2,
       opacity: 1,
-      draggable: true
+      draggable: true,
+      dashEnabled: true,
+      dash: [10, 5]
     })
   }
 
   initResize() {
     return new Konva.Rect({
-      x: this.width / 2 + (this.props.cropRadius * Math.sin(90)) - 5,
-      y: this.height / 2 + (this.props.cropRadius * Math.cos(90)) - 5,
-      width: 10,
-      height: 10,
-      fill: 'white',
-      stroke: 'black',
+      x: this.width / 2 + (this.props.cropRadius * Math.sin(90)) - 6,
+      y: this.height / 2 + (this.props.cropRadius * Math.cos(90)) - 6,
+      width: 12,
+      height: 12,
+      fill: 'grey',
+      stroke: 'white',
       strokeWidth: 1,
       draggable: true,
       dragBoundFunc: function(pos) {
@@ -215,6 +209,19 @@ class Avatar extends React.Component {
           x: this.getAbsolutePosition().x,
           y: pos.y
         }
+      }
+    })
+  }
+
+  initResizeIcon() {
+    return new Konva.Path({
+      x: 50,
+      y: 40,
+      data: 'M180.156,225.828c-1.903-1.902-4.093-2.854-6.567-2.854c-2.475,0-4.665,0.951-6.567,2.854l-94.787,94.787l-41.112-41.117    c-3.617-3.61-7.895-5.421-12.847-5.421c-4.952,0-9.235,1.811-12.851,5.421c-3.617,3.621-5.424,7.905-5.424,12.854v127.907    c0,4.948,1.807,9.229,5.424,12.847c3.619,3.613,7.902,5.424,12.851,5.424h127.906c4.949,0,9.23-1.811,12.847-5.424    c3.615-3.617,5.424-7.898,5.424-12.847s-1.809-9.233-5.424-12.854l-41.112-41.104l94.787-94.793    c1.902-1.903,2.853-4.086,2.853-6.564c0-2.478-0.953-4.66-2.853-6.57L180.156,225.828z',
+      fill: '#FFFFFF',
+      scale: {
+        x : 0.04,
+        y : 0.04
       }
     })
   }
