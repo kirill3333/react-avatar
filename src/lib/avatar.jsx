@@ -30,7 +30,12 @@ class Avatar extends React.Component {
     super(props);
     const image = this.props.img || new Image()
     if (!this.props.img && this.props.src) image.src = this.props.src
-    this.state = { image: image }
+    this.state = {
+      image: image,
+      imgWidth: 0,
+      imgHeight: 0,
+      scale: 1,
+    }
   }
 
   componentDidMount() {
@@ -46,15 +51,15 @@ class Avatar extends React.Component {
   }
 
   get scale() {
-    return this.props.scale || 1
+    return this.state.scale
   }
 
   get width() {
-    return this.props.width * this.scale
+    return this.state.imgWidth
   }
 
   get height() {
-    return this.props.height * this.scale
+    return this.state.imgHeight
   }
 
   get image () {
@@ -62,6 +67,29 @@ class Avatar extends React.Component {
   }
 
   init() {
+    const originalWidth = this.image.width
+    const originalHeight = this.image.height
+    console.log('Width: ' + originalWidth)
+    console.log('Height: ' + originalHeight)
+
+    const scale =  this.props.height / originalHeight
+
+    console.log('Props height: ' + this.props.height)
+    console.log('Scale: ' + scale)
+
+    const ration = originalHeight / originalWidth
+    const imageWidth = this.props.height / ration
+
+    console.log('Ratio: ' + ration)
+    console.log('New width: ' + imageWidth)
+    this.setState({
+      imgWidth: imageWidth,
+      imgHeight: this.props.height,
+      scale
+    }, this.initCanvas)
+  }
+
+  initCanvas() {
     const stage = this.initStage()
     const background = this.initBackground()
     const shading = this.initShading()
@@ -158,7 +186,7 @@ class Avatar extends React.Component {
     return new Konva.Circle({
       x: this.width / 2,
       y: this.height / 2,
-      radius: this.props.cropRadius * this.scale,
+      radius: this.props.cropRadius,
       fillPatternImage: this.image,
       fillPatternOffset: { x : (this.width / 2) / this.scale, y : (this.height / 2) / this.scale },
       fillPatternScale: {
@@ -174,8 +202,8 @@ class Avatar extends React.Component {
 
   initResize() {
     return new Konva.Rect({
-      x: this.width / 2 + (this.props.cropRadius * this.scale * Math.sin(90)) - 5,
-      y: this.height / 2 + (this.props.cropRadius * this.scale * Math.cos(90)) - 5,
+      x: this.width / 2 + (this.props.cropRadius * Math.sin(90)) - 5,
+      y: this.height / 2 + (this.props.cropRadius * Math.cos(90)) - 5,
       width: 10,
       height: 10,
       fill: 'white',
