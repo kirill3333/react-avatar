@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Avatar from '../lib/avatar.jsx';
+import Avatar from '../src/avatar.jsx';
 
 const onDrag = (src) => {
   const img = document.getElementById('preview')
