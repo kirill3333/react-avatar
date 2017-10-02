@@ -38,9 +38,9 @@ class Avatar extends React.Component {
     return 'avatarContainer-' + s4() + '-' + s4() + '-' + s4()
   }
 
-  onDrag(img) {
-    if (!this.props.onDrag && typeof this.props.onDrag !== 'function') return
-    this.props.onDrag(img)
+  onCrop(img) {
+    if (!this.props.onCrop && typeof this.props.onCrop !== 'function') return
+    this.props.onCrop(img)
   }
 
   componentDidMount() {
@@ -161,8 +161,10 @@ class Avatar extends React.Component {
       height: crop.radius() * 2
     })
 
+    this.onCrop(getPreview())
+
     crop.on("dragmove", () => crop.fire('resize'))
-    crop.on("dragend", () => this.onDrag(getPreview()))
+    crop.on("dragend", () => this.onCrop(getPreview()))
 
     crop.on('resize', () => {
       const x = isLeftCorner() ? calcLeft() : (isRightCorner() ? calcRight() : crop.x())
@@ -187,7 +189,7 @@ class Avatar extends React.Component {
       crop.radius(crop.radius() - calcScaleRadius(scale))
       resize.fire('resize')
     })
-    resize.on("dragend", () => this.onDrag(getPreview()))
+    resize.on("dragend", () => this.onCrop(getPreview()))
 
     resize.on('resize', () => moveResizer(crop.x(), crop.y()))
 
