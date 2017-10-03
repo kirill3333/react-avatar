@@ -21,21 +21,22 @@ class Avatar extends React.Component {
 
   constructor(props) {
     super(props)
-    const containerId = this.generateHash()
-    const image = this.props.img || new Image()
-    if (!this.props.img && this.props.src) image.src = this.props.src
+    const containerId = this.generateHash('avatar_container')
+    const loaderId = this.generateHash('avatar_loader')
+    this.onFileLoad = this.onFileLoad.bind(this)
     this.state = {
-      image: image,
       imgWidth: 0,
       imgHeight: 0,
       scale: 1,
-      containerId
+      containerId,
+      loaderId,
+      showLoader: !(this.props.src || this.props.img)
     }
   }
 
-  generateHash() {
+  generateHash(prefix) {
     const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
-    return 'avatarContainer-' + s4() + '-' + s4() + '-' + s4()
+    return prefix + '-' + s4() + '-' + s4() + '-' + s4()
   }
 
   onCrop(img) {
@@ -44,12 +45,22 @@ class Avatar extends React.Component {
   }
 
   componentDidMount() {
-    if (this.image.complete) return this.init()
-    this.image.onload = () => this.init()
+    if (this.state.showLoader) return
+
+    const image = this.props.img || new Image()
+    if (!this.props.img && this.props.src) image.src = this.props.src
+    this.setState({ image }, () => {
+      if (this.image.complete) return this.init()
+      this.image.onload = () => this.init()
+    })
   }
 
   get containerId() {
     return this.state.containerId
+  }
+
+  get loaderId() {
+    return this.state.loaderId
   }
 
   get backgroundColor() {
@@ -92,8 +103,27 @@ class Avatar extends React.Component {
     return this.state.imgHeight / 2
   }
 
-  get image () {
+  get image() {
     return this.state.image
+  }
+
+  onFileLoad(e) {
+    e.preventDefault()
+
+    let reader = new FileReader()
+    let file = e.target.files[0]
+
+    const image = new Image()
+    const ref = this
+    reader.onloadend = () => {
+      image.src = reader.result
+
+      ref.setState({ image, file, showLoader: false }, () => {
+        if (ref.image.complete) return ref.init()
+        ref.image.onload = () => ref.init()
+      })
+    }
+    reader.readAsDataURL(file)
   }
 
   init() {
@@ -119,15 +149,15 @@ class Avatar extends React.Component {
     const background = this.initBackground()
     const shading = this.initShading()
     const crop = this.initCrop()
-    const cropeStroke = this.initCropStroke()
+    const cropStroke = this.initCropStroke()
     const resize = this.initResize()
     const resizeIcon = this.initResizeIcon()
 
-    const layer = new Konva.Layer();
+    const layer = new Konva.Layer()
 
     layer.add(background)
     layer.add(shading)
-    layer.add(cropeStroke)
+    layer.add(cropStroke)
     layer.add(crop)
 
     layer.add(resize)
@@ -172,9 +202,9 @@ class Avatar extends React.Component {
       moveResizer(x, y)
       crop.setFillPatternOffset({ x: x / this.scale, y: y / this.scale })
       crop.x(x)
-      cropeStroke.x(x)
+      cropStroke.x(x)
       crop.y(y)
-      cropeStroke.y(y)
+      cropStroke.y(y)
     })
 
     crop.on("mouseenter", () => stage.container().style.cursor = 'move')
@@ -185,7 +215,7 @@ class Avatar extends React.Component {
     resize.on("dragmove", (evt) => {
       const scaleY = evt.evt.movementY
       const scale = scaleY  > 0 || isNotOutOfScale(scaleY) ? scaleY : 0
-      cropeStroke.radius(cropeStroke.radius() - calcScaleRadius(scale))
+      cropStroke.radius(cropStroke.radius() - calcScaleRadius(scale))
       crop.radius(crop.radius() - calcScaleRadius(scale))
       resize.fire('resize')
     })
@@ -300,8 +330,45 @@ class Avatar extends React.Component {
       width: this.props.width || this.width
     }
 
+    const inputStyle = {
+      width: 0.1,
+      height: 0.1,
+      opacity: 0,
+      overflow: 'hidden',
+      position: 'absolute',
+      zIndex: -1,
+    }
+
+    const labelStyle = {
+      fontSize: '1.25em',
+      fontWeight: '700',
+      color: 'black',
+      display: 'inline-block',
+      fontFamily: 'sans-serif',
+      lineHeight: (this.props.height || 200) + 'px',
+      cursor: 'pointer'
+    }
+
+    const borderStyle = {
+      border: '2px solid #979797',
+      borderStyle: 'dashed',
+      borderRadius: '8px',
+      textAlign: 'center',
+      width: this.props.width || 200,
+      height: this.props.height || 200
+    }
+
     return (
-      <div id={this.containerId} style={style}/>
+      <div>
+        {
+          this.state.showLoader ?
+            <div style={borderStyle}>
+              <input onChange={(e) => this.onFileLoad(e)} name={this.loaderId} type="file" id={this.loaderId} style={inputStyle}/>
+              <label htmlFor={this.loaderId} style={labelStyle}>Choose a file</label>
+            </div>
+            : <div id={this.containerId} style={style}/>
+        }
+      </div>
     )
   }
 }
