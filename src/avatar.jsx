@@ -16,7 +16,8 @@ class Avatar extends React.Component {
     shadingOpacity: 0.6,
     cropRadius: 100,
     minCropRadius: 30,
-    backgroundColor: 'grey'
+    backgroundColor: 'grey',
+    mimeTypes: 'image/jpeg,image/png'
   }
 
   constructor(props) {
@@ -24,6 +25,7 @@ class Avatar extends React.Component {
     const containerId = this.generateHash('avatar_container')
     const loaderId = this.generateHash('avatar_loader')
     this.onFileLoad = this.onFileLoad.bind(this)
+    this.onCloseClick = this.onCloseClick.bind(this)
     this.state = {
       imgWidth: 0,
       imgHeight: 0,
@@ -39,9 +41,19 @@ class Avatar extends React.Component {
     return prefix + '-' + s4() + '-' + s4() + '-' + s4()
   }
 
-  onCrop(img) {
+  onCloseCallback () {
+    if (!this.props.onClose && typeof this.props.onClose !== 'function') return
+    this.props.onClose()
+  }
+
+  onCropCallback (img) {
     if (!this.props.onCrop && typeof this.props.onCrop !== 'function') return
     this.props.onCrop(img)
+  }
+
+  onFileLoadCallback (file) {
+    if (!this.props.onFileLoad && typeof this.props.onFileLoad !== 'function') return
+    this.props.onFileLoad(file)
   }
 
   componentDidMount() {
@@ -61,6 +73,10 @@ class Avatar extends React.Component {
 
   get loaderId() {
     return this.state.loaderId
+  }
+
+  get mimeTypes() {
+    return this.props.mimeTypes
   }
 
   get backgroundColor() {
@@ -112,6 +128,7 @@ class Avatar extends React.Component {
 
     let reader = new FileReader()
     let file = e.target.files[0]
+    this.onFileLoadCallback(file)
 
     const image = new Image()
     const ref = this
@@ -124,6 +141,10 @@ class Avatar extends React.Component {
       })
     }
     reader.readAsDataURL(file)
+  }
+
+  onCloseClick () {
+    this.setState({ showLoader: true }, () => this.onCloseCallback())
   }
 
   init() {
@@ -191,10 +212,10 @@ class Avatar extends React.Component {
       height: crop.radius() * 2
     })
 
-    this.onCrop(getPreview())
+    this.onCropCallback(getPreview())
 
     crop.on("dragmove", () => crop.fire('resize'))
-    crop.on("dragend", () => this.onCrop(getPreview()))
+    crop.on("dragend", () => this.onCropCallback(getPreview()))
 
     crop.on('resize', () => {
       const x = isLeftCorner() ? calcLeft() : (isRightCorner() ? calcRight() : crop.x())
@@ -219,7 +240,7 @@ class Avatar extends React.Component {
       crop.radius(crop.radius() - calcScaleRadius(scale))
       resize.fire('resize')
     })
-    resize.on("dragend", () => this.onCrop(getPreview()))
+    resize.on("dragend", () => this.onCropCallback(getPreview()))
 
     resize.on('resize', () => moveResizer(crop.x(), crop.y()))
 
@@ -327,7 +348,8 @@ class Avatar extends React.Component {
       display: 'flex',
       justifyContent: 'center',
       backgroundColor: this.backgroundColor,
-      width: this.props.width || this.width
+      width: this.props.width || this.width,
+      position: 'relative'
     }
 
     const inputStyle = {
@@ -358,15 +380,41 @@ class Avatar extends React.Component {
       height: this.props.height || 200
     }
 
+    const closeBtnStyle = {
+      position: 'absolute',
+      zIndex: 999,
+      cursor: 'pointer',
+      left: '10px',
+      top: '10px'
+    }
+
     return (
       <div>
         {
-          this.state.showLoader ?
-            <div style={borderStyle}>
-              <input onChange={(e) => this.onFileLoad(e)} name={this.loaderId} type="file" id={this.loaderId} style={inputStyle}/>
-              <label htmlFor={this.loaderId} style={labelStyle}>Choose a file</label>
-            </div>
-            : <div id={this.containerId} style={style}/>
+          this.state.showLoader
+            ? <div style={borderStyle}>
+                <input
+                  onChange={(e) => this.onFileLoad(e)}
+                  name={this.loaderId} type="file"
+                  id={this.loaderId}
+                  style={inputStyle}
+                  accept={this.mimeTypes}
+                />
+                <label htmlFor={this.loaderId} style={labelStyle}>Choose a file</label>
+              </div>
+            : <div style={style}>
+                <svg
+                  onClick={this.onCloseClick}
+                  style={closeBtnStyle}
+                  viewBox="0 0 475.2 475.2"
+                  width="20px" height="20px">
+                  <g>
+                    <path d="M405.6,69.6C360.7,24.7,301.1,0,237.6,0s-123.1,24.7-168,69.6S0,174.1,0,237.6s24.7,123.1,69.6,168s104.5,69.6,168,69.6    s123.1-24.7,168-69.6s69.6-104.5,69.6-168S450.5,114.5,405.6,69.6z M386.5,386.5c-39.8,39.8-92.7,61.7-148.9,61.7    s-109.1-21.9-148.9-61.7c-82.1-82.1-82.1-215.7,0-297.8C128.5,48.9,181.4,27,237.6,27s109.1,21.9,148.9,61.7    C468.6,170.8,468.6,304.4,386.5,386.5z" fill="#FFFFFF"/>
+                    <path d="M342.3,132.9c-5.3-5.3-13.8-5.3-19.1,0l-85.6,85.6L152,132.9c-5.3-5.3-13.8-5.3-19.1,0c-5.3,5.3-5.3,13.8,0,19.1    l85.6,85.6l-85.6,85.6c-5.3,5.3-5.3,13.8,0,19.1c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4l85.6-85.6l85.6,85.6c2.6,2.6,6.1,4,9.5,4    c3.5,0,6.9-1.3,9.5-4c5.3-5.3,5.3-13.8,0-19.1l-85.4-85.6l85.6-85.6C347.6,146.7,347.6,138.2,342.3,132.9z" fill="#FFFFFF"/>
+                  </g>
+                </svg>
+                <div id={this.containerId} />
+              </div>
         }
       </div>
     )
