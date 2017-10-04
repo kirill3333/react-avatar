@@ -95,6 +95,13 @@ class App extends React.Component {
           </div>
           <div className="col-3"/>
         </div>
+        <div className="row" style={{backgroundColor: '#b3aeae', marginTop: '45px'}}>
+          <div className="col-2"/>
+          <div className="col-8" style={{margin: '25px 0'}}>
+            <a style={{color: '#ffffff'}} href="https://github.com/kirill3333/react-avatar">For me on Github</a>
+          </div>
+          <div className="col-2"/>
+        </div>
       </div>
     )
   }
