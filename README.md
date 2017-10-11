@@ -1,5 +1,7 @@
 # react-avatar
-👤 Load, crop and preview avatar with ReactJS component
+👤 Load, crop and preview avatar with ReactJS component 
+
+[![npm version](https://badge.fury.io/js/react-avatar-edit.svg)](https://badge.fury.io/js/react-avatar-edit)
 
 ## Demo
 
