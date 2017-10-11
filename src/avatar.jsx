@@ -23,7 +23,8 @@ class Avatar extends React.Component {
     mimeTypes: 'image/jpeg,image/png',
     onClose: () => {},
     onCrop: () => {},
-    onFileLoad: () => {}
+    onFileLoad: () => {},
+    onImageLoad: () => {}
   }
 
   constructor(props) {
@@ -47,16 +48,20 @@ class Avatar extends React.Component {
     return prefix + '-' + s4() + '-' + s4() + '-' + s4()
   }
 
-  onCloseCallback () {
+  onCloseCallback() {
     this.props.onClose()
   }
 
-  onCropCallback (img) {
+  onCropCallback(img) {
     this.props.onCrop(img)
   }
 
-  onFileLoadCallback (file) {
+  onFileLoadCallback(file) {
     this.props.onFileLoad(file)
+  }
+
+  onImageLoadCallback(image) {
+    this.props.onImageLoad(image)
   }
 
   componentDidMount() {
@@ -66,7 +71,10 @@ class Avatar extends React.Component {
     if (!this.props.img && this.props.src) image.src = this.props.src
     this.setState({ image }, () => {
       if (this.image.complete) return this.init()
-      this.image.onload = () => this.init()
+      this.image.onload = () => {
+        this.onImageLoadCallback(this.image)
+        this.init()
+      }
     })
   }
 
