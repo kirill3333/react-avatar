@@ -1,5 +1,5 @@
 # react-avatar
-👤 Load, crop, rotate and preview avatar with ReactJS component
+👤 Load, crop and preview avatar with ReactJS component
 
 # Demo
 
