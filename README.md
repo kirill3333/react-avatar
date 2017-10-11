@@ -73,3 +73,8 @@ ReactDOM.render(<App /> , document.getElementById('root'))
 | onCrop(image)          | Function         | Invoked when user drag&drop event stop and return croped image in base64 sting
 | onFileLoad(file)       | Function         | Invoked when user upload file with internal file loader
 | onClose()              | Function         | Invoked when user clock on close editor button
+
+## Contributing
+
+* To start developer server please use ```npm run start```
+* To build production bundle use ```npm run build```
