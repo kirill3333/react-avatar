@@ -57,3 +57,24 @@ ReactDOM.render(<App /> , document.getElementById('root'))
 | Prop                   | Type             | Description
 | ---------------------- | ---------------- | ---------------
 | img                    | Image            | The Image object to display
+| src                    | String/Base64    | The url ot base64 string to load (use urls from your domain to prevent security errors)
+| width                  | Number           | The width of the editor
+| height                 | Number           | The height of the editor (image will fit to this height)
+| cropRadius             | Number           | The crop area radius in px (default: 100)
+| cropColor              | String           | The crop border color (default: white)
+| lineWidth              | Number           | The crop border width (default: 4)
+| minCropRadius          | Number           | The min crop area radius in px (default: 30)
+| backgroundColor        | Sting            | The color of the image background (default: white)
+| closeIconColor         | String           | The close button color (default: white)
+| shadingColor           | String           | The shading color (default: grey)
+| shadingOpacity         | Number           | The shading area opacity (default: 0.6)
+| mimeTypes              | String           | The mime types used to filter loaded files (default: image/jpeg,image/png)
+| onImageLoad(image)     | Function         | Invoked when image based on src prop finish loading
+| onCrop(image)          | Function         | Invoked when user drag&drop event stop and return croped image in base64 sting
+| onFileLoad(file)       | Function         | Invoked when user upload file with internal file loader
+| onClose()              | Function         | Invoked when user clock on close editor button
+
+## Contributing
+
+* To start developer server please use ```npm run start```
+* To build production bundle use ```npm run build```
