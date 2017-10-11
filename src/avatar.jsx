@@ -15,9 +15,15 @@ class Avatar extends React.Component {
     shadingColor: 'grey',
     shadingOpacity: 0.6,
     cropRadius: 100,
+    cropColor: 'white',
+    closeIconColor: 'white',
+    lineWidth: 4,
     minCropRadius: 30,
     backgroundColor: 'grey',
-    mimeTypes: 'image/jpeg,image/png'
+    mimeTypes: 'image/jpeg,image/png',
+    onClose: () => {},
+    onCrop: () => {},
+    onFileLoad: () => {}
   }
 
   constructor(props) {
@@ -42,17 +48,14 @@ class Avatar extends React.Component {
   }
 
   onCloseCallback () {
-    if (!this.props.onClose && typeof this.props.onClose !== 'function') return
     this.props.onClose()
   }
 
   onCropCallback (img) {
-    if (!this.props.onCrop && typeof this.props.onCrop !== 'function') return
     this.props.onCrop(img)
   }
 
   onFileLoadCallback (file) {
-    if (!this.props.onFileLoad && typeof this.props.onFileLoad !== 'function') return
     this.props.onFileLoad(file)
   }
 
@@ -67,8 +70,20 @@ class Avatar extends React.Component {
     })
   }
 
+  get lineWidth() {
+    return this.props.lineWidth
+  }
+
   get containerId() {
     return this.state.containerId
+  }
+
+  get closeIconColor() {
+    return this.props.closeIconColor
+  }
+
+  get cropColor() {
+    return this.props.cropColor
   }
 
   get loaderId() {
@@ -306,8 +321,8 @@ class Avatar extends React.Component {
       x: this.halfWidth,
       y: this.halfHeight,
       radius: this.cropRadius,
-      stroke: '#FFF',
-      strokeWidth: 2,
+      stroke: this.cropColor,
+      strokeWidth: this.lineWidth,
       strokeScaleEnabled: true,
       dashEnabled: true,
       dash: [10, 5]
@@ -335,7 +350,7 @@ class Avatar extends React.Component {
       x: this.halfWidth + this.cropRadius * 0.86 - 8,
       y: this.halfHeight + this.cropRadius * -0.5 - 10,
       data: 'M47.624,0.124l12.021,9.73L44.5,24.5l10,10l14.661-15.161l9.963,12.285v-31.5H47.624z M24.5,44.5   L9.847,59.653L0,47.5V79h31.5l-12.153-9.847L34.5,54.5L24.5,44.5z',
-      fill: '#FFF',
+      fill: this.cropColor,
       scale: {
         x : 0.2,
         y : 0.2
@@ -409,8 +424,8 @@ class Avatar extends React.Component {
                   viewBox="0 0 475.2 475.2"
                   width="20px" height="20px">
                   <g>
-                    <path d="M405.6,69.6C360.7,24.7,301.1,0,237.6,0s-123.1,24.7-168,69.6S0,174.1,0,237.6s24.7,123.1,69.6,168s104.5,69.6,168,69.6    s123.1-24.7,168-69.6s69.6-104.5,69.6-168S450.5,114.5,405.6,69.6z M386.5,386.5c-39.8,39.8-92.7,61.7-148.9,61.7    s-109.1-21.9-148.9-61.7c-82.1-82.1-82.1-215.7,0-297.8C128.5,48.9,181.4,27,237.6,27s109.1,21.9,148.9,61.7    C468.6,170.8,468.6,304.4,386.5,386.5z" fill="#FFFFFF"/>
-                    <path d="M342.3,132.9c-5.3-5.3-13.8-5.3-19.1,0l-85.6,85.6L152,132.9c-5.3-5.3-13.8-5.3-19.1,0c-5.3,5.3-5.3,13.8,0,19.1    l85.6,85.6l-85.6,85.6c-5.3,5.3-5.3,13.8,0,19.1c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4l85.6-85.6l85.6,85.6c2.6,2.6,6.1,4,9.5,4    c3.5,0,6.9-1.3,9.5-4c5.3-5.3,5.3-13.8,0-19.1l-85.4-85.6l85.6-85.6C347.6,146.7,347.6,138.2,342.3,132.9z" fill="#FFFFFF"/>
+                    <path d="M405.6,69.6C360.7,24.7,301.1,0,237.6,0s-123.1,24.7-168,69.6S0,174.1,0,237.6s24.7,123.1,69.6,168s104.5,69.6,168,69.6    s123.1-24.7,168-69.6s69.6-104.5,69.6-168S450.5,114.5,405.6,69.6z M386.5,386.5c-39.8,39.8-92.7,61.7-148.9,61.7    s-109.1-21.9-148.9-61.7c-82.1-82.1-82.1-215.7,0-297.8C128.5,48.9,181.4,27,237.6,27s109.1,21.9,148.9,61.7    C468.6,170.8,468.6,304.4,386.5,386.5z" fill={this.closeIconColor}/>
+                    <path d="M342.3,132.9c-5.3-5.3-13.8-5.3-19.1,0l-85.6,85.6L152,132.9c-5.3-5.3-13.8-5.3-19.1,0c-5.3,5.3-5.3,13.8,0,19.1    l85.6,85.6l-85.6,85.6c-5.3,5.3-5.3,13.8,0,19.1c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4l85.6-85.6l85.6,85.6c2.6,2.6,6.1,4,9.5,4    c3.5,0,6.9-1.3,9.5-4c5.3-5.3,5.3-13.8,0-19.1l-85.4-85.6l85.6-85.6C347.6,146.7,347.6,138.2,342.3,132.9z" fill={this.closeIconColor}/>
                   </g>
                 </svg>
                 <div id={this.containerId} />
