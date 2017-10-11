@@ -2,7 +2,7 @@
   "name": "react-avatar-edit",
   "version": "0.5.2",
   "description": "ReactJS component to upload, crop, and preview avatars",
-  "main": "dist/react-avatar.js",
+  "main": "src/avatar.jsx",
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack  --config webpack.prod.js --optimize-minimize"
@@ -15,10 +15,15 @@
     "name": "Kirill Novikov",
     "email": "kirill3333@inbox.ru"
   },
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/kirill3333/react-avatar/issues"
   },
+  "keywords": [
+    "avatar",
+    "react",
+    "canvas"
+  ],
   "homepage": "https://github.com/kirill3333/react-avatar#readme",
   "dependencies": {
     "konva": "^1.6.7"
