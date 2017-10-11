@@ -1,11 +1,11 @@
 {
   "name": "react-avatar",
   "version": "0.0.1",
-  "description": "ReactJS component to upload, crop, rotate and preview avatars",
-  "main": "index.js",
+  "description": "ReactJS component to upload, crop, and preview avatars",
+  "main": "dist/react-avatar.js",
   "scripts": {
-    "start": "webpack-dev-server",
-    "build": "webpack --optimize-minimize"
+    "start": "webpack-dev-server --open --config webpack.dev.js",
+    "build": "webpack  --config webpack.prod.js --optimize-minimize"
   },
   "repository": {
     "type": "git",
@@ -39,5 +39,8 @@
     "webpack": "^3.5.4",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.7.1"
+  },
+  "peerDependencies": {
+    "react": "15.x"
   }
 }
