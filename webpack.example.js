@@ -1,17 +1,10 @@
 const path = require('path')
 const webpack = require('webpack')
 
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: './example/index.html',
-  filename: 'index.html',
-  inject: 'body'
-})
-
 module.exports = {
   entry: './example/app.jsx',
   output: {
-    path: path.resolve('dist'),
+    path: path.resolve('docs'),
     filename: 'bundle.js'
   },
   module: {
@@ -21,11 +14,9 @@ module.exports = {
     ]
   },
   plugins: [
-    HtmlWebpackPluginConfig,
     new webpack.DefinePlugin({
-      SOURCE_PATH: JSON.stringify('./docs')
+      SOURCE_PATH: JSON.stringify('.')
     })
-  ],
+  ]
 
-  devtool: 'source-map'
 }

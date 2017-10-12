@@ -6,7 +6,7 @@ class App extends React.Component {
 
   constructor(props) {
     super(props)
-    const src = './example/einshtein.jpg'
+    const src = SOURCE_PATH + '/einshtein.jpg'
     this.state = {
       preview: null,
       defaultPreview: null,
@@ -40,7 +40,7 @@ class App extends React.Component {
         <div className="row" style={{backgroundColor: '#a75d61', padding: '8px 0'}}>
           <div className="col-2"/>
           <div className="col-8">
-            <img src="./example/user.png" alt="" style={{ marginTop: '3px', marginRight: '15px', float: 'left', width: '36px', height: '36px'}}/>
+            <img src={SOURCE_PATH + '/user.png'} alt="" style={{ marginTop: '3px', marginRight: '15px', float: 'left', width: '36px', height: '36px'}}/>
             <h1 style={{ marginTop: '3px', color: 'white', fontWeight: 300, fontSize: '2rem'}}>React avatar editor</h1>
           </div>
           <div className="col-2"/>

@@ -31,5 +31,3 @@ node_modules
 *.DS_Store
 
 dist/
-docs/bundle.js
-docs/bundle.js.map
