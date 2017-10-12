@@ -1,6 +1,6 @@
 {
   "name": "react-avatar-edit",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "ReactJS component to upload, crop, and preview avatars",
   "main": "src/avatar.jsx",
   "scripts": {
