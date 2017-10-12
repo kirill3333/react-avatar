@@ -7,6 +7,8 @@
 
 ![](https://media.giphy.com/media/3o7aD1fCeJxzNu2uYg/giphy.gif)
 
+## [Demo website](https://kirill3333.github.io/react-avatar/)
+
 ## Usage
 
 ```javascript
