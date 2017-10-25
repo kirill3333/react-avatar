@@ -21,6 +21,7 @@ class Avatar extends React.Component {
     minCropRadius: 30,
     backgroundColor: 'grey',
     mimeTypes: 'image/jpeg,image/png',
+    mobileScaleSpeed: 0.5, // experimental
     onClose: () => {},
     onCrop: () => {},
     onFileLoad: () => {},
@@ -112,6 +113,10 @@ class Avatar extends React.Component {
 
   get shadingOpacity() {
     return this.props.shadingOpacity
+  }
+
+  get mobileScaleSpeed() {
+    return this.props.mobileScaleSpeed
   }
 
   get cropRadius() {
@@ -235,6 +240,13 @@ class Avatar extends React.Component {
       height: crop.radius() * 2
     })
 
+    const onScaleCallback = (scaleY) => {
+      const scale = scaleY  > 0 || isNotOutOfScale(scaleY) ? scaleY : 0
+      cropStroke.radius(cropStroke.radius() - calcScaleRadius(scale))
+      crop.radius(crop.radius() - calcScaleRadius(scale))
+      resize.fire('resize')
+    }
+
     this.onCropCallback(getPreview())
 
     crop.on("dragmove", () => crop.fire('resize'))
@@ -256,12 +268,18 @@ class Avatar extends React.Component {
     crop.on('dragstart', () => stage.container().style.cursor = 'move')
     crop.on('dragend', () => stage.container().style.cursor = 'default')
 
+    resize.on("touchstart", (evt) => {
+      resize.on("dragmove", (dragEvt) => {
+        if (dragEvt.evt.type !== 'touchmove') return
+        const scaleY =  (dragEvt.evt.changedTouches['0'].pageY - evt.evt.changedTouches['0'].pageY) || 0
+        onScaleCallback(scaleY * this.mobileScaleSpeed)
+      })
+    })
+
     resize.on("dragmove", (evt) => {
-      const scaleY = evt.evt.movementY
-      const scale = scaleY  > 0 || isNotOutOfScale(scaleY) ? scaleY : 0
-      cropStroke.radius(cropStroke.radius() - calcScaleRadius(scale))
-      crop.radius(crop.radius() - calcScaleRadius(scale))
-      resize.fire('resize')
+      if (evt.evt.type === 'touchmove') return
+      const scaleY = evt.evt.movementY || 0
+      onScaleCallback(scaleY)
     })
     resize.on("dragend", () => this.onCropCallback(getPreview()))
 
