@@ -38,3 +38,8 @@ jspm_packages
 example
 docs
 dist
+webpack.dev.js
+webpack.example.js
+webpack.prod.js
+.babelrc
+.gitignore
