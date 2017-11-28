@@ -7,7 +7,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 module.exports = {
   entry: './src/avatar.jsx',
   output: {
-    path: path.resolve('dist'),
+    path: path.resolve('lib'),
     filename: 'react-avatar.js',
     library: 'reactAvatar',
     libraryTarget: 'umd'

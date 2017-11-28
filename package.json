@@ -2,7 +2,7 @@
   "name": "react-avatar-edit",
   "version": "0.5.6",
   "description": "ReactJS component to upload, crop, and preview avatars",
-  "main": "src/avatar.jsx",
+  "main": "lib/react-avatar.js",
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack  --config webpack.prod.js --optimize-minimize",
