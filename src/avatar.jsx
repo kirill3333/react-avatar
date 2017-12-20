@@ -25,7 +25,21 @@ class Avatar extends React.Component {
     onClose: () => {},
     onCrop: () => {},
     onFileLoad: () => {},
-    onImageLoad: () => {}
+    onImageLoad: () => {},
+    labelStyle: {
+      fontSize: '1.25em',
+      fontWeight: '700',
+      color: 'black',
+      display: 'inline-block',
+      fontFamily: 'sans-serif',
+      cursor: 'pointer'
+    },
+    borderStyle: {
+      border: '2px solid #979797',
+      borderStyle: 'dashed',
+      borderRadius: '8px',
+      textAlign: 'center'
+    }
   }
 
   constructor(props) {
@@ -402,23 +416,11 @@ class Avatar extends React.Component {
       zIndex: -1,
     }
 
-    const labelStyle = {
-      fontSize: '1.25em',
-      fontWeight: '700',
-      color: 'black',
-      display: 'inline-block',
-      fontFamily: 'sans-serif',
-      lineHeight: (this.props.height || 200) + 'px',
-      cursor: 'pointer'
-    }
+    const labelStyle = { ...this.props.labelStyle, ...{ lineHeight: (this.props.height || 200) + 'px' }}
 
-    const borderStyle = {
-      border: '2px solid #979797',
-      borderStyle: 'dashed',
-      borderRadius: '8px',
-      textAlign: 'center',
-      width: this.props.width || 200,
-      height: this.props.height || 200
+    const borderStyle = { ...this.props.borderStyle, ...{
+        width: this.props.width || 200,
+        height: this.props.height || 200}
     }
 
     const closeBtnStyle = {
