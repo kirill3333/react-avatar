@@ -61,7 +61,7 @@ ReactDOM.render(<App /> , document.getElementById('root'))
 | Prop                   | Type             | Description
 | ---------------------- | ---------------- | ---------------
 | img                    | Image            | The Image object to display
-| src                    | String/Base64    | The url ot base64 string to load (use urls from your domain to prevent security errors)
+| src                    | String/Base64    | The url to base64 string to load (use urls from your domain to prevent security errors)
 | width                  | Number           | The width of the editor
 | height                 | Number           | The height of the editor (image will fit to this height)
 | cropRadius             | Number           | The crop area radius in px (default: 100)
