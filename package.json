@@ -3,6 +3,7 @@
   "version": "0.5.9",
   "description": "ReactJS component to upload, crop, and preview avatars",
   "main": "lib/react-avatar.js",
+  "types": "src/avatar.d.ts",
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack  --config webpack.prod.js --optimize-minimize",
