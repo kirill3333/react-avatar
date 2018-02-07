@@ -26,6 +26,7 @@ class Avatar extends React.Component {
     onCrop: () => {},
     onFileLoad: () => {},
     onImageLoad: () => {},
+    label: 'Choose a file',
     labelStyle: {
       fontSize: '1.25em',
       fontWeight: '700',
@@ -416,7 +417,7 @@ class Avatar extends React.Component {
       zIndex: -1,
     }
 
-    const label = this.props.label || 'Choose a file'
+    const label = this.props.label
 
     const labelStyle = { ...this.props.labelStyle, ...{ lineHeight: (this.props.height || 200) + 'px' }}
 
