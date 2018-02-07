@@ -9,6 +9,10 @@
 
 ## [Demo website](https://kirill3333.github.io/react-avatar/)
 
+## Install
+
+```npm i react-avatar-edit```
+
 ## Usage
 
 ```javascript
