@@ -73,6 +73,7 @@ ReactDOM.render(<App /> , document.getElementById('root'))
 | shadingColor           | String           | The shading color (default: grey)
 | shadingOpacity         | Number           | The shading area opacity (default: 0.6)
 | mimeTypes              | String           | The mime types used to filter loaded files (default: image/jpeg,image/png)
+| label                  | String           | Label text (default: Choose a file)
 | labelStyle             | Object           | The style object for preview label (use camel case for css properties fore example: fontSize)
 | borderStyle            | Object           | The style for object border preview (use camel case for css properties fore example: fontSize)
 | onImageLoad(image)     | Function         | Invoked when image based on src prop finish loading
