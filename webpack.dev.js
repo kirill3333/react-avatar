@@ -10,15 +10,23 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 
 module.exports = {
   entry: './example/app.jsx',
+  mode: 'development',
   output: {
     path: path.resolve('dist'),
     filename: 'bundle.js'
   },
   module: {
-    loaders: [
-      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
-    ]
+    rules: [
+      { 
+		loader: 'babel-loader', 
+		test: /\.js$/, 
+		exclude: /node_modules/ 
+	  }, { 
+		loader: 'babel-loader',
+		test: /\.jsx$/,
+		exclude: /node_modules/ 
+	  },
+    ],
   },
   plugins: [
     HtmlWebpackPluginConfig,
@@ -26,6 +34,5 @@ module.exports = {
       SOURCE_PATH: JSON.stringify('./docs')
     })
   ],
-
-  devtool: 'source-map'
+  devtool: 'cheap-module-eval-source-map'
 }

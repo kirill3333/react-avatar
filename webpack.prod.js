@@ -6,6 +6,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 module.exports = {
   entry: './src/avatar.jsx',
+  mode: 'production',
   output: {
     path: path.resolve('lib'),
     filename: 'react-avatar.js',
@@ -13,10 +14,18 @@ module.exports = {
     libraryTarget: 'umd'
   },
   module: {
-    loaders: [
-      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
-    ]
+    module: {
+    rules: [
+      { 
+		loader: 'babel-loader', 
+		test: /\.js$/, 
+		exclude: /node_modules/ 
+	  }, { 
+		loader: 'babel-loader',
+		test: /\.jsx$/,
+		exclude: /node_modules/ 
+	  },
+    ],
   },
   externals: {
     'react': 'react'
@@ -26,11 +35,6 @@ module.exports = {
     new CompressionPlugin({
       test: /\.js/
     }),
-    new UglifyJSPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
-    })
+    new UglifyJSPlugin()
   ]
 }

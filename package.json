@@ -1,13 +1,13 @@
 {
   "name": "react-avatar-edit",
-  "version": "0.5.10",
+  "version": "0.6.0",
   "description": "ReactJS component to upload, crop, and preview avatars",
   "main": "lib/react-avatar.js",
   "types": "src/avatar.d.ts",
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
-    "build": "webpack  --config webpack.prod.js --optimize-minimize",
-    "build:example": "webpack  --config webpack.example.js --optimize-minimize"
+    "build": "webpack --config webpack.prod.js --optimize-minimize",
+    "build:example": "webpack --config webpack.example.js --optimize-minimize"
   },
   "repository": {
     "type": "git",
@@ -28,27 +28,27 @@
   ],
   "homepage": "https://github.com/kirill3333/react-avatar#readme",
   "dependencies": {
-    "konva": "1.7.6"
+    "konva": "2.1.3",
+    "webpack-cli": "^2.1.4"
   },
   "devDependencies": {
-    "babel-core": "^6.25.0",
-    "babel-loader": "^7.1.1",
-    "babel-minify": "^0.2.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "compression-webpack-plugin": "^1.0.1",
-    "html-webpack-plugin": "^2.30.1",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "compression-webpack-plugin": "^1.1.11",
+    "html-webpack-plugin": "^3.2.0",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
     "rollup-webpack-loader": "^1.0.0",
     "uglifyjs-webpack-plugin": "^0.4.6",
-    "webpack": "^3.5.4",
-    "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-server": "^2.7.1"
+    "webpack": "^4.9.1",
+    "webpack-bundle-analyzer": "^2.13.1",
+    "webpack-dev-server": "^3.1.4"
   },
   "peerDependencies": {
-    "react": "15.x"
+    "react": "16.x"
   }
 }
