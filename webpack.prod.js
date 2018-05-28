@@ -14,7 +14,6 @@ module.exports = {
     libraryTarget: 'umd'
   },
   module: {
-    module: {
     rules: [
       { 
 		loader: 'babel-loader', 
@@ -36,5 +35,5 @@ module.exports = {
       test: /\.js/
     }),
     new UglifyJSPlugin()
-  ]
+  ],
 }
