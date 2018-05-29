@@ -300,9 +300,9 @@ class Avatar extends React.Component {
       const newMouseY = evt.evt.y;
       const ieScaleFactor = newMouseY ? (newMouseY - this.state.lastMouseY) : undefined;
       const scaleY =  evt.evt.movementY || ieScaleFactor || 0;
-	  this.setState({
-		  lastMouseY: newMouseY,
-	  });
+  	  this.setState({
+  		  lastMouseY: newMouseY,
+  	  });
       onScaleCallback(scaleY)
     });
     resize.on("dragend", () => this.onCropCallback(getPreview()));
