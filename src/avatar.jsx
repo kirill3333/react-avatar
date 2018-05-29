@@ -197,10 +197,10 @@ class Avatar extends React.Component {
     const originalWidth = this.image.width;
     const originalHeight = this.image.height;
     const ration = originalHeight / originalWidth;
-    const height = this.props.height || originalHeight;
+    const imageWidth = 500;
+    const height = imageWidth * ration || originalHeight;
 
     const scale = height / originalHeight;
-    const imageWidth = height / ration;
     const cropRadius = imageWidth / 4;
 
     this.setState({
