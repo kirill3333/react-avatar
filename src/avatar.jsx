@@ -298,8 +298,11 @@ class Avatar extends React.Component {
     resize.on("dragmove", (evt) => {
       if (evt.evt.type === 'touchmove') return;
       const newMouseY = evt.evt.y;
-      const ieScaleFactor = newMouseY ? ((newMouseY - this.state.lastMouseY) * 0.05) : undefined;
+      const ieScaleFactor = newMouseY ? (newMouseY - this.state.lastMouseY) : undefined;
       const scaleY =  evt.evt.movementY || ieScaleFactor || 0;
+	  this.setState({
+		  lastMouseY: newMouseY,
+	  });
       onScaleCallback(scaleY)
     });
     resize.on("dragend", () => this.onCropCallback(getPreview()));
