@@ -1,8 +1,8 @@
-const path = require('path')
-const webpack = require('webpack')
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
-const CompressionPlugin = require("compression-webpack-plugin")
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const path = require('path');
+const webpack = require('webpack');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
   entry: './src/avatar.jsx',
@@ -15,15 +15,15 @@ module.exports = {
   },
   module: {
     rules: [
-      { 
-		loader: 'babel-loader', 
-		test: /\.js$/, 
-		exclude: /node_modules/ 
-	  }, { 
-		loader: 'babel-loader',
-		test: /\.jsx$/,
-		exclude: /node_modules/ 
-	  },
+      {
+        loader: 'babel-loader',
+        test: /\.js$/,
+        exclude: /node_modules/
+      }, {
+        loader: 'babel-loader',
+        test: /\.jsx$/,
+        exclude: /node_modules/
+      },
     ],
   },
   externals: {
@@ -36,4 +36,4 @@ module.exports = {
     }),
     new UglifyJSPlugin()
   ],
-}
+};

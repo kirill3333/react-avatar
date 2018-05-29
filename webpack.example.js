@@ -1,5 +1,5 @@
-const path = require('path')
-const webpack = require('webpack')
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   entry: './example/app.jsx',
@@ -10,15 +10,15 @@ module.exports = {
   },
   module: {
     rules: [
-      { 
-		loader: 'babel-loader', 
-		test: /\.js$/, 
-		exclude: /node_modules/ 
-	  }, { 
-		loader: 'babel-loader',
-		test: /\.jsx$/,
-		exclude: /node_modules/ 
-	  },
+      {
+        loader: 'babel-loader',
+        test: /\.js$/,
+        exclude: /node_modules/
+      }, {
+        loader: 'babel-loader',
+        test: /\.jsx$/,
+        exclude: /node_modules/
+      },
     ],
   },
   plugins: [
@@ -26,4 +26,4 @@ module.exports = {
       SOURCE_PATH: JSON.stringify('.')
     })
   ],
-}
+};

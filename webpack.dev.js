@@ -1,12 +1,12 @@
-const path = require('path')
-const webpack = require('webpack')
+const path = require('path');
+const webpack = require('webpack');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './example/index.html',
   filename: 'index.html',
   inject: 'body'
-})
+});
 
 module.exports = {
   entry: './example/app.jsx',
@@ -17,15 +17,15 @@ module.exports = {
   },
   module: {
     rules: [
-      { 
-		loader: 'babel-loader', 
-		test: /\.js$/, 
-		exclude: /node_modules/ 
-	  }, { 
-		loader: 'babel-loader',
-		test: /\.jsx$/,
-		exclude: /node_modules/ 
-	  },
+      {
+        loader: 'babel-loader',
+        test: /\.js$/,
+        exclude: /node_modules/
+      }, {
+        loader: 'babel-loader',
+        test: /\.jsx$/,
+        exclude: /node_modules/
+      },
     ],
   },
   plugins: [
@@ -35,4 +35,4 @@ module.exports = {
     })
   ],
   devtool: 'cheap-module-eval-source-map'
-}
+};

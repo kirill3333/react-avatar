@@ -43,7 +43,7 @@
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
     "rollup-webpack-loader": "^1.0.0",
-    "uglifyjs-webpack-plugin": "^0.4.6",
+    "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^4.9.1",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-dev-server": "^3.1.4"
