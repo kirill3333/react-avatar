@@ -1,24 +1,32 @@
-const path = require('path')
-const webpack = require('webpack')
+const path = require('path');
+const webpack = require('webpack');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './example/index.html',
   filename: 'index.html',
   inject: 'body'
-})
+});
 
 module.exports = {
   entry: './example/app.jsx',
+  mode: 'development',
   output: {
     path: path.resolve('dist'),
     filename: 'bundle.js'
   },
   module: {
-    loaders: [
-      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
-    ]
+    rules: [
+      {
+        loader: 'babel-loader',
+        test: /\.js$/,
+        exclude: /node_modules/
+      }, {
+        loader: 'babel-loader',
+        test: /\.jsx$/,
+        exclude: /node_modules/
+      },
+    ],
   },
   plugins: [
     HtmlWebpackPluginConfig,
@@ -26,6 +34,5 @@ module.exports = {
       SOURCE_PATH: JSON.stringify('./docs')
     })
   ],
-
-  devtool: 'source-map'
-}
+  devtool: 'cheap-module-eval-source-map'
+};
