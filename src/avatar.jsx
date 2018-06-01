@@ -197,27 +197,31 @@ class Avatar extends React.Component {
     const originalWidth = this.image.width;
     const originalHeight = this.image.height;
     const ration = originalHeight / originalWidth;
-    let imageHeight;
-    let imageWidth;
-    if (this.props.imageHeight && !this.props.imageWidth) {
-      imageHeight = this.props.imageHeight || originalHeight;
-      imageWidth = imageHeight / ration;
-    } else if (this.props.imageWidth && !this.props.imageHeight) {
-      imageWidth = this.props.imageWidth;
-      imageHeight = imageWidth * ration || originalHeight;
-    } else if (this.props.imageHeight && this.props.imageWidth) {
-      throw new Error('The imageWidth and imageHeight properties can not be set together.');
-    } else {
-      imageHeight = this.props.height || originalHeight;
-      imageWidth = imageHeight / ration;
+    const { imageWidth, imageHeight } = this.props;
+    let imgHeight;
+    let imgWidth;
+
+    if (imageHeight && imageWidth) {
+      console.warn('The imageWidth and imageHeight properties can not be set together, using only imageWidth.');
     }
 
-    const scale = imageHeight / originalHeight;
-    const cropRadius = imageWidth / 4;
+    if (imageHeight && !imageWidth) {
+      imgHeight = imageHeight || originalHeight;
+      imgWidth = imgHeight / ration;
+    } else if (imageWidth) {
+      imgWidth = imageWidth;
+      imgHeight = imgWidth * ration || originalHeight;
+    } else {
+      imgHeight = this.props.height || originalHeight;
+      imgWidth = imgHeight / ration;
+    }
+
+    const scale = imgHeight / originalHeight;
+    const cropRadius = imgWidth / 4;
 
     this.setState({
-      imgWidth: imageWidth,
-      imgHeight: imageHeight,
+      imgWidth,
+      imgHeight,
       scale,
       cropRadius
     }, this.initCanvas)
