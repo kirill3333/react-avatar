@@ -33,3 +33,5 @@ node_modules
 dist/
 .idea
 lib/
+
+react-avatar.iml

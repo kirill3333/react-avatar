@@ -197,15 +197,31 @@ class Avatar extends React.Component {
     const originalWidth = this.image.width;
     const originalHeight = this.image.height;
     const ration = originalHeight / originalWidth;
-    const height = this.props.height || originalHeight;
+    const { imageWidth, imageHeight } = this.props;
+    let imgHeight;
+    let imgWidth;
 
-    const scale = height / originalHeight;
-    const imageWidth = height / ration;
-    const cropRadius = imageWidth / 4;
+    if (imageHeight && imageWidth) {
+      console.warn('The imageWidth and imageHeight properties can not be set together, using only imageWidth.');
+    }
+
+    if (imageHeight && !imageWidth) {
+      imgHeight = imageHeight || originalHeight;
+      imgWidth = imgHeight / ration;
+    } else if (imageWidth) {
+      imgWidth = imageWidth;
+      imgHeight = imgWidth * ration || originalHeight;
+    } else {
+      imgHeight = this.props.height || originalHeight;
+      imgWidth = imgHeight / ration;
+    }
+
+    const scale = imgHeight / originalHeight;
+    const cropRadius = imgWidth / 4;
 
     this.setState({
-      imgWidth: imageWidth,
-      imgHeight: height,
+      imgWidth,
+      imgHeight,
       scale,
       cropRadius
     }, this.initCanvas)
