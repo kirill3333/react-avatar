@@ -85,7 +85,7 @@ ReactDOM.render(<App /> , document.getElementById('root'))
 | onImageLoad(image)     | Function         | Invoked when image based on src prop finish loading
 | onCrop(image)          | Function         | Invoked when user drag&drop event stop and return croped image in base64 sting
 | onFileLoad(file)       | Function         | Invoked when user upload file with internal file loader
-| onClose()              | Function         | Invoked when user clock on close editor button
+| onClose()              | Function         | Invoked when user clicks on close editor button
 
 ## Contributing
 
