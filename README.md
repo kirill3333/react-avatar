@@ -31,6 +31,7 @@ class App extends React.Component {
     }
     this.onCrop = this.onCrop.bind(this)
     this.onClose = this.onClose.bind(this)
+    this.onBeforeFileLoad = this.onBeforeFileLoad.bind(this)
   }
   
   onClose() {
@@ -39,6 +40,13 @@ class App extends React.Component {
   
   onCrop(preview) {
     this.setState({preview})
+  }
+
+  onBeforeFileLoad(elem) {
+    if(elem.target.files[0].size > 71680){
+      alert("File is too big!");
+      elem.target.value = "";
+    };
   }
   
   render () {
@@ -49,6 +57,7 @@ class App extends React.Component {
           height={295}
           onCrop={this.onCrop}
           onClose={this.onClose}
+          onBeforeFileLoad={this.onBeforeFileLoad}
           src={this.state.src}
         />
         <img src={this.state.preview} alt="Preview" />
@@ -84,6 +93,7 @@ ReactDOM.render(<App /> , document.getElementById('root'))
 | borderStyle            | Object           | The style for object border preview (use camel case for css properties fore example: fontSize)
 | onImageLoad(image)     | Function         | Invoked when image based on src prop finish loading
 | onCrop(image)          | Function         | Invoked when user drag&drop event stop and return croped image in base64 sting
+| onBeforeFileLoad(file) | Function         | Invoked when user before upload file with internal file loader (etc. check file size)
 | onFileLoad(file)       | Function         | Invoked when user upload file with internal file loader
 | onClose()              | Function         | Invoked when user clock on close editor button
 
