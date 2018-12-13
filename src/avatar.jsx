@@ -12,7 +12,6 @@ class Avatar extends React.Component {
   static defaultProps = {
     shadingColor: 'grey',
     shadingOpacity: 0.6,
-    cropRadius: 100,
     cropColor: 'white',
     closeIconColor: 'white',
     lineWidth: 4,
@@ -227,7 +226,7 @@ class Avatar extends React.Component {
     }
 
     const scale = imgHeight / originalHeight;
-    const cropRadius = imgWidth / 4;
+    const cropRadius = Math.max(this.props.minCropRadius, this.props.cropRadius || Math.min(imgWidth, imgHeight) / 2);
 
     this.setState({
       imgWidth,
