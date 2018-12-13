@@ -58,7 +58,6 @@ class App extends React.Component {
             <Avatar
               width={390}
               height={295}
-              cropRadius={150}
               onCrop={this.onCropDefault}
               onClose={this.onCloseDefault}
               // src={this.state.src}
@@ -83,7 +82,7 @@ class App extends React.Component {
             <Avatar
               width={390}
               height={295}
-              cropRadius={150}
+              cropRadius={50}
               onCrop={this.onCrop}
               onClose={this.onClose}
               src={this.state.src}

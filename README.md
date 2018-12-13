@@ -79,7 +79,7 @@ ReactDOM.render(<App /> , document.getElementById('root'))
 | height                 | Number           | The height of the editor (image will fit to this height if neither imageHeight, nor imageWidth is set)
 | imageWidth             | Number           | The desired width of the image, can not be used together with imageHeight
 | imageHeight            | Number           | The desired height of the image, can not be used together with imageWidth
-| cropRadius             | Number           | The crop area radius in px (default: 100)
+| cropRadius             | Number           | The crop area radius in px (default: calculated as min image with/height / 3)
 | cropColor              | String           | The crop border color (default: white)
 | lineWidth              | Number           | The crop border width (default: 4)
 | minCropRadius          | Number           | The min crop area radius in px (default: 30)

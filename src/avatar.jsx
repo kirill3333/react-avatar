@@ -203,6 +203,7 @@ class Avatar extends React.Component {
   }
 
   init() {
+    const { height, minCropRadius, cropRadius } = this.props;
     const originalWidth = this.image.width;
     const originalHeight = this.image.height;
     const ration = originalHeight / originalWidth;
@@ -221,18 +222,18 @@ class Avatar extends React.Component {
       imgWidth = imageWidth;
       imgHeight = imgWidth * ration || originalHeight;
     } else {
-      imgHeight = this.props.height || originalHeight;
+      imgHeight = height || originalHeight;
       imgWidth = imgHeight / ration;
     }
 
     const scale = imgHeight / originalHeight;
-    const cropRadius = Math.max(this.props.minCropRadius, this.props.cropRadius || Math.min(imgWidth, imgHeight) / 2);
+    const calculatedRadius = Math.max(minCropRadius, (cropRadius || Math.min(imgWidth, imgHeight) / 3));
 
     this.setState({
       imgWidth,
       imgHeight,
       scale,
-      cropRadius
+      cropRadius: calculatedRadius
     }, this.initCanvas)
   }
 
@@ -439,11 +440,13 @@ class Avatar extends React.Component {
   }
 
   render() {
+    const { width, height } = this.props;
+
     const style = {
       display: 'flex',
       justifyContent: 'center',
       backgroundColor: this.backgroundColor,
-      width: this.props.width || this.width,
+      width: width || this.width,
       position: 'relative'
     };
 
@@ -458,12 +461,12 @@ class Avatar extends React.Component {
 
     const label = this.props.label;
 
-    const labelStyle = { ...this.props.labelStyle, ...{ lineHeight: (this.props.height || 200) + 'px' } };
+    const labelStyle = { ...this.props.labelStyle, ...{ lineHeight: (height || 200) + 'px' } };
 
     const borderStyle = {
       ...this.props.borderStyle, ...{
-        width: this.props.width || 200,
-        height: this.props.height || 200
+        width: width || 200,
+        height: height || 200
       }
     };
 
