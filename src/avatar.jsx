@@ -28,6 +28,8 @@ class Avatar extends React.Component {
     },
     onImageLoad: () => {
     },
+    onBeforeFileLoad: () => {
+    },
     label: 'Choose a file',
     labelStyle: {
       fontSize: '1.25em',
@@ -151,6 +153,10 @@ class Avatar extends React.Component {
     this.props.onFileLoad(file)
   }
 
+  onBeforeFileLoadCallback(elem) {
+    this.props.onBeforeFileLoad(elem)
+  }
+
   onImageLoadCallback(image) {
     this.props.onImageLoad(image)
   }
@@ -172,8 +178,12 @@ class Avatar extends React.Component {
   onFileLoad(e) {
     e.preventDefault();
 
+    this.onBeforeFileLoadCallback(e);
+    if(!e.target.value) return;
+
     let reader = new FileReader();
     let file = e.target.files[0];
+    
     this.onFileLoadCallback(file);
 
     const image = new Image();
