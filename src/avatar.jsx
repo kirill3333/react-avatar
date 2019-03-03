@@ -1,4 +1,5 @@
 import React from 'react'
+import piexif from 'piexifjs'
 import Konva from 'konva/src/Core'
 import 'konva/src/shapes/Image'
 import 'konva/src/shapes/Circle'
@@ -188,14 +189,70 @@ class Avatar extends React.Component {
     const image = new Image();
     const ref = this;
     reader.onloadend = () => {
-      image.src = reader.result;
+      this.resetOrientation(reader.result, data => {
+        image.src = data;
 
-      ref.setState({ image, file, showLoader: false }, () => {
-        if (ref.image.complete) return ref.init();
-        ref.image.onload = () => ref.init()
+        ref.setState({ image, file, showLoader: false }, () => {
+          if (ref.image.complete) return ref.init();
+          ref.image.onload = () => ref.init()
+        });
       })
     };
     reader.readAsDataURL(file)
+  }
+
+  resetOrientation(srcBase64, callback) {
+    if (!srcBase64.startsWith('data:image/jpeg')) {
+      return callback(srcBase64);
+    }
+
+    const exif = piexif.load(srcBase64);
+    const exif0 = exif['0th'];
+
+    if (!exif0 || !exif0[piexif.ImageIFD.Orientation]) {
+      return callback(srcBase64);
+    }
+
+    const srcOrientation = exif0[piexif.ImageIFD.Orientation];
+
+    if (srcOrientation < 2 || srcOrientation > 8) {
+      return callback(srcBase64);
+    }
+
+    const img = new Image()
+
+    img.onload = () => {
+      const width = img.width,
+            height = img.height,
+            canvas = document.createElement('canvas'),
+            ctx = canvas.getContext('2d');
+
+      if (4 < srcOrientation && srcOrientation < 9) {
+        canvas.width = height;
+        canvas.height = width;
+      }
+      else {
+        canvas.width = width;
+        canvas.height = height;
+      }
+
+      switch (srcOrientation) {
+        case 2: ctx.transform(-1, 0, 0, 1, width, 0); break;
+        case 3: ctx.transform(-1, 0, 0, -1, width, height); break;
+        case 4: ctx.transform(1, 0, 0, -1, 0, height); break;
+        case 5: ctx.transform(0, 1, 1, 0, 0, 0); break;
+        case 6: ctx.transform(0, 1, -1, 0, height, 0); break;
+        case 7: ctx.transform(0, -1, -1, 0, height, width); break;
+        case 8: ctx.transform(0, -1, 1, 0, 0, width); break;
+        default: break;
+      }
+
+      ctx.drawImage(img, 0, 0);
+
+      callback(canvas.toDataURL());
+    };
+
+    img.src = srcBase64;
   }
 
   onCloseClick() {
