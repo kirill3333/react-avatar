@@ -1,6 +1,6 @@
 {
   "name": "react-avatar-edit",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "ReactJS component to upload, crop, and preview avatars",
   "main": "lib/react-avatar.js",
   "types": "src/avatar.d.ts",
@@ -40,8 +40,8 @@
     "babel-preset-react": "6.24.1",
     "compression-webpack-plugin": "1.1.11",
     "html-webpack-plugin": "3.2.0",
-    "react": "16.3.0",
-    "react-dom": "16.3.0",
+    "react": "16.8.3",
+    "react-dom": "16.8.3",
     "rollup-webpack-loader": "1.0.0",
     "uglifyjs-webpack-plugin": "1.2.5",
     "webpack": "4.9.1",
