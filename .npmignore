@@ -43,3 +43,5 @@ webpack.example.js
 webpack.prod.js
 .babelrc
 .gitignore
+.idea
+.editorconfig
