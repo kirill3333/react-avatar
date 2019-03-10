@@ -1,6 +1,7 @@
 {
   "presets":[
-    "es2015", "react"
+    "@babel/preset-env",
+    "@babel/preset-react"
   ],
   "env": {
     "production": {
@@ -8,7 +9,6 @@
     }
   },
   "plugins": [
-    "transform-class-properties",
-    "transform-object-rest-spread"
+    "@babel/plugin-proposal-class-properties"
   ]
 }
