@@ -24,6 +24,16 @@ export interface Props {
    * The height of the editor (image will fit to this height)
    */
   height: number;
+  
+  /**
+   * The desired width of the image, can not be used together with imageHeight
+   */
+  imageWidth?: number;
+  
+  /**
+   * The desired height of the image, can not be used together with imageWidth
+   */
+  imageHeight?: number;
 
   /**
    * The crop area radius in px (
@@ -104,6 +114,11 @@ export interface Props {
    * Invoked when user drag&drop event stop and return croped image in base64 sting
    */
   onCrop?: (data: HTMLImageElement) => void;
+  
+  /**
+   * Invoked when user upload file with internal file loader
+   */
+  onBeforeFileLoad?: (data: HTMLImageElement) => void;
 
   /**
    * Invoked when user upload file with internal file loader
