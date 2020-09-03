@@ -1,5 +1,6 @@
 import React from 'react'
 import Konva from 'konva/src/Core'
+import LoadImage from 'blueimp-load-image'
 import 'konva/src/shapes/Image'
 import 'konva/src/shapes/Circle'
 import 'konva/src/shapes/Rect'
@@ -181,7 +182,7 @@ class Avatar extends React.Component {
     if(!e.target.value) return;
 
     let reader = new FileReader();
-    let file = e.target.files[0];
+    let file = LoadImage(e.target.files[0], {orientation: 1});
     
     this.onFileLoadCallback(file);
 
