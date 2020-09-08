@@ -182,7 +182,6 @@ class Avatar extends React.Component {
     this.onBeforeFileLoadCallback(e);
     if(!e.target.value) return;
 
-    let reader = new FileReader();
     let file = e.target.files[0];
 
     this.onFileLoadCallback(file);
