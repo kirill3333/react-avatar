@@ -1,5 +1,7 @@
 import React from 'react'
 import Konva from 'konva/src/Core'
+import EXIF from 'exif-js'
+import LoadImage from 'blueimp-load-image'
 import 'konva/src/shapes/Image'
 import 'konva/src/shapes/Circle'
 import 'konva/src/shapes/Rect'
@@ -180,22 +182,22 @@ class Avatar extends React.Component {
     this.onBeforeFileLoadCallback(e);
     if(!e.target.value) return;
 
-    let reader = new FileReader();
     let file = e.target.files[0];
-    
+
     this.onFileLoadCallback(file);
 
-    const image = new Image();
     const ref = this;
-    reader.onloadend = () => {
-      image.src = reader.result;
-
-      ref.setState({ image, file, showLoader: false }, () => {
-        if (ref.image.complete) return ref.init();
-        ref.image.onload = () => ref.init()
-      })
-    };
-    reader.readAsDataURL(file)
+    EXIF.getData(file, function() {
+      let exifOrientation = EXIF.getTag(this, "Orientation");
+      LoadImage(
+        file,
+        function (image, data) {
+          ref.setState({ image, file, showLoader: false});
+          ref.init();
+        },
+        {orientation: exifOrientation, meta: true}
+      );
+    })
   }
 
   onCloseClick() {
