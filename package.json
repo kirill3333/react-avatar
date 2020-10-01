@@ -47,7 +47,7 @@
     "rollup-webpack-loader": "1.0.0",
     "uglifyjs-webpack-plugin": "1.2.5",
     "webpack": "^4.44.2",
-    "webpack-bundle-analyzer": "2.13.1",
+    "webpack-bundle-analyzer": "3.3.2",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   },
