@@ -44,10 +44,10 @@
     "react-dom": "16.8.3",
     "rollup-webpack-loader": "1.0.0",
     "uglifyjs-webpack-plugin": "1.2.5",
-    "webpack": "4.9.2",
+    "webpack": "^4.44.2",
     "webpack-bundle-analyzer": "2.13.1",
-    "webpack-cli": "^3.2.3",
-    "webpack-dev-server": "^3.2.1"
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   },
   "peerDependencies": {
     "react": "16.x"
