@@ -60,6 +60,12 @@ export interface Props {
   minCropRadius?: number;
 
   /**
+   * When set to true the returned data for onCrop is a square instead of a circle.
+   * Default: false
+   */
+  returnCropAsSquare?: boolean;
+
+  /**
    * The color of the image background
    * Default: white
    */

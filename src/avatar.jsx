@@ -18,6 +18,7 @@ class Avatar extends React.Component {
     closeIconColor: 'white',
     lineWidth: 4,
     minCropRadius: 30,
+    returnCropAsSquare: false,
     backgroundColor: 'grey',
     mimeTypes: 'image/jpeg,image/png',
     mobileScaleSpeed: 0.5, // experimental
@@ -280,7 +281,7 @@ class Avatar extends React.Component {
       resizeIcon.y(calcResizerY(y) - 10)
     };
 
-    const getPreview = () => crop.toDataURL({
+    const getPreview = () => (this.props.returnCropAsSquare ? background : crop).toDataURL({
       x: crop.x() - crop.radius(),
       y: crop.y() - crop.radius(),
       width: crop.radius() * 2,
