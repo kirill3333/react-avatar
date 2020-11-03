@@ -96,6 +96,10 @@ ReactDOM.render(<App /> , document.getElementById('root'))
 | onBeforeFileLoad(file) | Function         | Invoked when user before upload file with internal file loader (etc. check file size)
 | onFileLoad(file)       | Function         | Invoked when user upload file with internal file loader
 | onClose()              | Function         | Invoked when user clicks on close editor button
+| exportAsSquare         | Boolean          | The exported image is a square and the circle is not cut-off from the image
+| exportSize             | Number           | The size the exported image should have (width and height equal). The cropping will be made on the original image to ensure a high quality. Only supported when using "exportAsSquare"
+| exportMimeType         | String           | The mime type that should be used to export the image, supported are: image/jpeg, image/png (Default: image/png)
+| exportQuality          | Number           | The quality that should be used when exporting in image/jpeg. A value between 0.0 and 1.0.
 
 ## Contributing
 
