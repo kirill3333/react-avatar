@@ -96,6 +96,18 @@ export interface Props {
   mimeTypes?: string;
 
   /**
+   * The mime type used to generate the data param for onCrop
+   * Default: image/png
+   */
+  exportMimeType?: string;
+
+  /**
+   * The quality used to generate the data param for onCrop, only relevant for image/jpeg as exportMimeType
+   * Default: 1.0
+   */
+  exportQuality?: number;
+
+  /**
    * Label text
    * Default: Choose a file
    */

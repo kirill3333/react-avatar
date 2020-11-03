@@ -21,6 +21,8 @@ class Avatar extends React.Component {
     returnCropAsSquare: false,
     backgroundColor: 'grey',
     mimeTypes: 'image/jpeg,image/png',
+    exportMimeType: 'image/png',
+    exportQuality: 1.0,
     mobileScaleSpeed: 0.5, // experimental
     onClose: () => {
     },
@@ -285,7 +287,9 @@ class Avatar extends React.Component {
       x: crop.x() - crop.radius(),
       y: crop.y() - crop.radius(),
       width: crop.radius() * 2,
-      height: crop.radius() * 2
+      height: crop.radius() * 2,
+      mimeType: this.props.exportMimeType,
+      quality: this.props.exportQuality
     });
 
     const onScaleCallback = (scaleY) => {
