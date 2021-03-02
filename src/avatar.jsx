@@ -20,6 +20,10 @@ class Avatar extends React.Component {
     minCropRadius: 30,
     backgroundColor: 'grey',
     mimeTypes: 'image/jpeg,image/png',
+    exportAsSquare: false,
+    exportSize: undefined,
+    exportMimeType: 'image/png',
+    exportQuality: 1.0,
     mobileScaleSpeed: 0.5, // experimental
     onClose: () => {
     },
@@ -280,12 +284,37 @@ class Avatar extends React.Component {
       resizeIcon.y(calcResizerY(y) - 10)
     };
 
-    const getPreview = () => crop.toDataURL({
-      x: crop.x() - crop.radius(),
-      y: crop.y() - crop.radius(),
-      width: crop.radius() * 2,
-      height: crop.radius() * 2
-    });
+    const getPreview = () => {
+      if(this.props.exportAsSquare) {
+        const fullSizeImage = new Konva.Image({ image: this.image });
+        const xScale = fullSizeImage.width() / background.width();
+        const yScale = fullSizeImage.height() / background.height();
+
+        const width = crop.radius() * 2 * xScale;
+        const height = crop.radius() * 2 * yScale;
+
+        const pixelRatio = this.props.exportSize ? this.props.exportSize / width : undefined;
+
+        return fullSizeImage.toDataURL({
+          x: (crop.x() - crop.radius()) * xScale,
+          y: (crop.y() - crop.radius())  * yScale,
+          width,
+          height,
+          pixelRatio,
+          mimeType: this.props.exportMimeType,
+          quality: this.props.exportQuality
+        });
+      } else {
+        return crop.toDataURL({
+          x: crop.x() - crop.radius(),
+          y: crop.y() - crop.radius(),
+          width: crop.radius() * 2,
+          height: crop.radius() * 2,
+          mimeType: this.props.exportMimeType,
+          quality: this.props.exportQuality
+        });
+      }
+    };
 
     const onScaleCallback = (scaleY) => {
       const scale = scaleY > 0 || isNotOutOfScale(scaleY) ? scaleY : 0;

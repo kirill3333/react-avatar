@@ -90,6 +90,30 @@ export interface Props {
   mimeTypes?: string;
 
   /**
+   * When set to true the returned data for onCrop is a square instead of a circle.
+   * Default: false
+   */
+  exportAsSquare?: boolean;
+
+  /**
+   * The number of pixels width/height should have on the exported image.
+   * Default: original size of the image
+   */
+  exportSize?: number;
+
+  /**
+   * The mime type used to generate the data param for onCrop
+   * Default: image/png
+   */
+  exportMimeType?: string;
+
+  /**
+   * The quality used to generate the data param for onCrop, only relevant for image/jpeg as exportMimeType
+   * Default: 1.0
+   */
+  exportQuality?: number;
+
+  /**
    * Label text
    * Default: Choose a file
    */
