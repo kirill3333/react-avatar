@@ -58,6 +58,7 @@ class App extends React.Component {
             <Avatar
               width={390}
               height={295}
+              exportSize={390}
               onCrop={this.onCropDefault}
               onClose={this.onCloseDefault}
               // src={this.state.src}

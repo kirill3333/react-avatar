@@ -292,7 +292,6 @@ class Avatar extends React.Component {
 
         const width = crop.radius() * 2 * xScale;
         const height = crop.radius() * 2 * yScale;
-
         const pixelRatio = this.props.exportSize ? this.props.exportSize / width : undefined;
 
         return fullSizeImage.toDataURL({
@@ -305,11 +304,16 @@ class Avatar extends React.Component {
           quality: this.props.exportQuality
         });
       } else {
+        const width = crop.radius() * 2;
+        const height = crop.radius() * 2;
+        const pixelRatio = this.props.exportSize ? this.props.exportSize / width : undefined;
+
         return crop.toDataURL({
           x: crop.x() - crop.radius(),
           y: crop.y() - crop.radius(),
-          width: crop.radius() * 2,
-          height: crop.radius() * 2,
+          width,
+          height,
+          pixelRatio,
           mimeType: this.props.exportMimeType,
           quality: this.props.exportQuality
         });
