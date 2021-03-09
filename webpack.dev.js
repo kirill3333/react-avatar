@@ -34,5 +34,5 @@ module.exports = {
       SOURCE_PATH: JSON.stringify('./docs')
     })
   ],
-  devtool: 'cheap-module-eval-source-map'
+  devtool: 'eval-cheap-module-source-map'
 };

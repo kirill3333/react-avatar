@@ -7,7 +7,7 @@
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js --optimize-minimize",
-    "build:example": "webpack --config webpack.example.js --optimize-minimize"
+    "build:example": "webpack --config webpack.example.js"
   },
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
   },
   "author": {
     "name": "Kirill Novikov",
-    "email": "kirill3333@inbox.ru"
+    "email": "kirillpodium@gmail.com"
   },
   "license": "MIT",
   "bugs": {
@@ -33,23 +33,23 @@
     "konva": "^2.5.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.11.6",
+    "@babel/cli": "^7.13.10",
     "@babel/core": "^7.11.6",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-es2015": "^7.0.0-beta.53",
     "@babel/preset-react": "^7.10.4",
     "babel-loader": "^8.1.0",
-    "compression-webpack-plugin": "1.1.11",
-    "html-webpack-plugin": "3.2.0",
+    "compression-webpack-plugin": "^7.1.2",
+    "html-webpack-plugin": "5.3.1",
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "rollup-webpack-loader": "1.0.0",
-    "uglifyjs-webpack-plugin": "1.2.5",
-    "webpack": "^4.44.2",
-    "webpack-bundle-analyzer": "2.13.1",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "uglifyjs-webpack-plugin": "2.2.0",
+    "webpack": "^5.24.4",
+    "webpack-bundle-analyzer": "^4.4.0",
+    "webpack-cli": "4.5.0",
+    "webpack-dev-server": "3.11.2"
   },
   "peerDependencies": {
     "react": "16.x"
