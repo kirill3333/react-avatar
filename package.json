@@ -5,7 +5,6 @@
   "main": "lib/react-avatar.js",
   "types": "src/avatar.d.ts",
   "scripts": {
-    "postinstall": "npm run build",
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "build:example": "webpack --config webpack.example.js"
