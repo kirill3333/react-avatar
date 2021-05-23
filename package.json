@@ -6,7 +6,7 @@
   "types": "src/avatar.d.ts",
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js --optimize-minimize",
+    "build": "webpack --config webpack.prod.js",
     "build:example": "webpack --config webpack.example.js"
   },
   "repository": {
