@@ -83,7 +83,7 @@ ReactDOM.render(<App /> , document.getElementById('root'))
 | cropColor              | String           | The crop border color (default: white)
 | lineWidth              | Number           | The crop border width (default: 4)
 | minCropRadius          | Number           | The min crop area radius in px (default: 30)
-| backgroundColor        | Sting            | The color of the image background (default: white)
+| backgroundColor        | String           | The color of the image background (default: white)
 | closeIconColor         | String           | The close button color (default: white)
 | shadingColor           | String           | The shading color (default: grey)
 | shadingOpacity         | Number           | The shading area opacity (default: 0.6)
@@ -92,7 +92,7 @@ ReactDOM.render(<App /> , document.getElementById('root'))
 | labelStyle             | Object           | The style object for preview label (use camel case for css properties fore example: fontSize)
 | borderStyle            | Object           | The style for object border preview (use camel case for css properties fore example: fontSize)
 | onImageLoad(image)     | Function         | Invoked when image based on src prop finish loading
-| onCrop(image)          | Function         | Invoked when user drag&drop event stop and return croped image in base64 sting
+| onCrop(image)          | Function         | Invoked when user drag&drop event stop and return cropped image in base64 string
 | onBeforeFileLoad(file) | Function         | Invoked when user before upload file with internal file loader (etc. check file size)
 | onFileLoad(file)       | Function         | Invoked when user upload file with internal file loader
 | onClose()              | Function         | Invoked when user clicks on close editor button
