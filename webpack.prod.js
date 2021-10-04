@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CompressionPlugin = require("compression-webpack-plugin");
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
@@ -34,6 +33,5 @@ module.exports = {
     new CompressionPlugin({
       test: /\.js/
     }),
-    new UglifyJSPlugin()
   ],
 };

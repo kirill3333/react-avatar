@@ -34,5 +34,11 @@ module.exports = {
       SOURCE_PATH: JSON.stringify('./docs')
     })
   ],
-  devtool: 'eval-cheap-module-source-map'
+  devtool: 'eval-cheap-module-source-map',
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'docs'),
+      publicPath: '/docs',
+    },
+  },
 };

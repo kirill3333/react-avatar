@@ -16,6 +16,7 @@ class App extends React.Component {
     this.onCropDefault = this.onCropDefault.bind(this)
     this.onClose = this.onClose.bind(this)
     this.onCloseDefault = this.onCloseDefault.bind(this)
+    this.onLoadNewImage = this.onLoadNewImage.bind(this)
   }
 
   onCropDefault(preview) {
@@ -32,6 +33,11 @@ class App extends React.Component {
 
   onClose() {
     this.setState({preview: null})
+  }
+
+  onLoadNewImage() {
+    const src = SOURCE_PATH + '/einshtein2.jpeg'
+    this.setState({src})
   }
 
   render() {
@@ -61,7 +67,6 @@ class App extends React.Component {
               exportSize={390}
               onCrop={this.onCropDefault}
               onClose={this.onCloseDefault}
-              // src={this.state.src}
             />
           </div>
           <div className="col-2">
@@ -88,6 +93,9 @@ class App extends React.Component {
               onClose={this.onClose}
               src={this.state.src}
             />
+            <div  style={{paddingTop: 20}}>
+              <button onClick={this.onLoadNewImage} type="button" className="btn btn-primary">Load another image</button>
+            </div>
           </div>
           <div className="col-2">
             <h5>Preview</h5>

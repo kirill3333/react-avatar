@@ -181,6 +181,12 @@ class Avatar extends React.Component {
     })
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.src !== this.props.src) {
+      this.image.src = this.props.src
+    }
+  }
+
   onFileLoad(e) {
     e.preventDefault();
 
