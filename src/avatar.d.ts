@@ -114,10 +114,10 @@ export interface Props {
   exportQuality?: number;
 
   /**
-   * Label text
+   * Label
    * Default: Choose a file
    */
-  label?: string;
+  label?: React.ReactNode;
 
   /**
    * The style object for preview label
