@@ -30,7 +30,7 @@
   "dependencies": {
     "blueimp-load-image": "^5.14.0",
     "exif-js": "^2.3.0",
-    "konva": "^2.5.1"
+    "konva": "^8.3.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
