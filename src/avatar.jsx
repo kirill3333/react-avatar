@@ -203,8 +203,9 @@ class Avatar extends React.Component {
       LoadImage(
         file,
         function (image, data) {
-          ref.setState({ image, file, showLoader: false});
-          ref.init();
+          ref.setState({ image, file, showLoader: false}, () => {
+            ref.init();
+          });
         },
         {orientation: exifOrientation, meta: true}
       );
