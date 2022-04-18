@@ -456,8 +456,8 @@ class Avatar extends React.Component {
     return new Konva.Rect({
       x: this.halfWidth + this.cropRadius * 0.86 - 8,
       y: this.halfHeight + this.cropRadius * -0.5 - 8,
-      width: 16,
-      height: 16,
+      width: 32,
+      height: 32,
       draggable: true,
       dragBoundFunc: function (pos) {
         return {
