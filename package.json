@@ -52,5 +52,6 @@
   },
   "peerDependencies": {
     "react": "^16.x || ^17",
+    "react": "^16.x || ^17 || ^18"
   }
 }
