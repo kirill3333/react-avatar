@@ -1,13 +1,13 @@
 import React from 'react'
-import Konva from 'konva/src/Core'
+import Konva from 'konva/lib/Core'
 import EXIF from 'exif-js'
 import LoadImage from 'blueimp-load-image'
-import 'konva/src/shapes/Image'
-import 'konva/src/shapes/Circle'
-import 'konva/src/shapes/Rect'
-import 'konva/src/shapes/Path'
-import 'konva/src/Animation'
-import 'konva/src/DragAndDrop'
+import 'konva/lib/shapes/Image'
+import 'konva/lib/shapes/Circle'
+import 'konva/lib/shapes/Rect'
+import 'konva/lib/shapes/Path'
+import 'konva/lib/Animation'
+import 'konva/lib/DragAndDrop'
 
 class Avatar extends React.Component {
 
