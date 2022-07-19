@@ -72,6 +72,16 @@ export interface Props {
   closeIconColor?: string;
 
   /**
+   * A custom close button icon
+   */
+   closeIcon?: React.ReactNode;
+
+  /**
+   * The style object for close button
+   */
+  closeButtonStyle?: React.CSSProperties;
+
+  /**
    * The shading color
    * Default: grey
    */
