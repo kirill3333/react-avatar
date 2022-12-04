@@ -1,7 +1,14 @@
 # react-avatar
-👤 Load, crop and preview avatar with ReactJS component 
+👤 Load, crop and preview avatar with ReactJS component
+
+- Works from the box
+- Fully typed with TypeScript
+- Drag and Drop support
+- A lot of customization
+- Powered with KonvaJS
 
 [![npm version](https://badge.fury.io/js/react-avatar-edit.svg)](https://badge.fury.io/js/react-avatar-edit)
+<a href="https://www.npmjs.com/package/react-avatar-edit"><img alt="Downloads" src="https://img.shields.io/npm/dm/react-avatar-edit"></a>
 
 ## Demo
 
