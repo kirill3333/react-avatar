@@ -93,6 +93,8 @@ ReactDOM.render(<App /> , document.getElementById('root'))
 | minCropRadius          | Number           | The min crop area radius in px (default: 30)
 | backgroundColor        | String           | The color of the image background (default: white)
 | closeIconColor         | String           | The close button color (default: white)
+| closeIcon              | ReactNode        | A custom close button icon
+| closeButtonStyle       | Object           | The style object for close button
 | shadingColor           | String           | The shading color (default: grey)
 | shadingOpacity         | Number           | The shading area opacity (default: 0.6)
 | mimeTypes              | String           | The mime types used to filter loaded files (default: image/jpeg,image/png)
