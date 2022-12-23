@@ -1,6 +1,6 @@
 import React from 'react'
 import Konva from 'konva/lib/Core'
-import EXIF from 'exif-js'
+import EXIF from 'exif-js_fixed'
 import LoadImage from 'blueimp-load-image'
 import 'konva/lib/shapes/Image'
 import 'konva/lib/shapes/Circle'
