@@ -1,29 +1,30 @@
-const path = require('path');
-const webpack = require('webpack');
+const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
-  entry: './example/app.jsx',
-  mode: 'development',
+  entry: "./example/app.jsx",
+  mode: "development",
   output: {
-    path: path.resolve('docs'),
-    filename: 'bundle.js'
+    path: path.resolve("docs"),
+    filename: "bundle.js",
   },
   module: {
     rules: [
       {
-        loader: 'babel-loader',
+        loader: "babel-loader",
         test: /\.js$/,
-        exclude: /node_modules/
-      }, {
-        loader: 'babel-loader',
+        exclude: /node_modules/,
+      },
+      {
+        loader: "babel-loader",
         test: /\.jsx$/,
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
     ],
   },
   plugins: [
     new webpack.DefinePlugin({
-      SOURCE_PATH: JSON.stringify('.')
-    })
+      SOURCE_PATH: JSON.stringify("."),
+    }),
   ],
 };
